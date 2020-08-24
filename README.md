@@ -1,5 +1,10 @@
 # README
 
+Leveraging the excellent work from:
+
+* https://gitlab.com/vkrava4/avro-converter/
+* https://github.com/thombergs/buckpal
+
 ## Spring HATEOAS
 The Spring HATEOAS project is a library of APIs that we can use to easily create REST representations that follow the 
 principle of HATEOAS _Hypertext as the Engine of Application State_.
