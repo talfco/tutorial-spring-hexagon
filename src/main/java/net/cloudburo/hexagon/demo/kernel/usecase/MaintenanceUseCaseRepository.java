@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import net.cloudburo.hexagon.demo.port.in.maintenance.MaintenancePort;
 import net.cloudburo.hexagon.demo.port.out.persistence.PersistencePort;
 // The Domain Data
-import com.cloudburo.hexagon.demo.domain.EmailData;
+import net.cloudburo.hexagon.demo.domain.User;
 
 @Repository
 @Configuration
@@ -32,11 +32,11 @@ public class MaintenanceUseCaseRepository implements MaintenancePort {
         return persistencePort;
     }
 
-    public EmailData readUser(String id) throws Exception {
+    public User readUser(String id) throws Exception {
         return this.getPersistencePort().readUser(id);
     }
 
-    public EmailData createUser(EmailData emailData) throws Exception {
+    public User createUser(User emailData) throws Exception {
         return getPersistencePort().createUser(emailData);
 
     }

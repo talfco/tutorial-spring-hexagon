@@ -1,9 +1,9 @@
 package net.cloudburo.hexagon.demo.port.out.persistence;
 
-import com.cloudburo.hexagon.demo.domain.EmailData;
+import net.cloudburo.hexagon.demo.domain.User;
 
 public interface PersistencePort {
 
-    public EmailData createUser(EmailData data);
-    public EmailData readUser(String id);
+    public User createUser(User data);
+    public User readUser(String id);
 }

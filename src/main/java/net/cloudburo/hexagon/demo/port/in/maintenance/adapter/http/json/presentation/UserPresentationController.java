@@ -2,13 +2,17 @@ package net.cloudburo.hexagon.demo.port.in.maintenance.adapter.http.json.present
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
+import net.cloudburo.hexagon.demo.domain.Header;
+import org.apache.avro.SchemaNormalization;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.cloudburo.hexagon.demo.domain.EmailData;
+import net.cloudburo.hexagon.demo.domain.User;
+import net.cloudburo.hexagon.demo.domain.Basic;
 import net.cloudburo.hexagon.demo.kernel.usecase.MaintenanceUseCaseRepository;
+
 
 @RestController
 public class UserPresentationController {
@@ -23,12 +27,12 @@ public class UserPresentationController {
     public HttpEntity<UserPresentationModel> readUser(@PathVariable String userId) {
         // The Avro Client Object which is our Domain Model
         try {
-            EmailData data = maintenanceUseCaseRepository.readUser(userId);
+            User data = maintenanceUseCaseRepository.readUser(userId);
             String country = "Switzerland";
             UserPresentationModel user = new UserPresentationModel(
-                    data.getUsername(),
-                    data.getEmail(),
-                    data.getSubscribed(),
+                    data.getBasic().getUsername(),
+                    data.getBasic().getEmail(),
+                    data.getBasic().getSubscribed(),
                     country);
             user.id = userId;
             user.add(linkTo(methodOn(UserPresentationController.class).readUser(userId)).withSelfRel());
@@ -40,17 +44,33 @@ public class UserPresentationController {
 
     @PostMapping(path = "/presentation/maintain/user", consumes = "application/json", produces = "application/json")
     public ResponseEntity<UserPresentationModel> createUser(@RequestBody UserPresentationModel user) {
+
         // We transform the request to our domain model
         String country = "CH";
-        EmailData emailData = EmailData.newBuilder()
-                                .setEmail(user.email)
-                                .setUsername(user.userName)
-                                .setSubscribed(user.subscribed)
-                                .setCountry(country)
+
+        long fingerprint = SchemaNormalization.parsingFingerprint64(User.getClassSchema());
+
+        // Creating the Header Record
+        Header headerRecord = Header.newBuilder()
+                                            .setAvroFingerprint(fingerprint)
+                                            .setLastUpdateLoginId("FKU")
+                                            .build();
+
+        // Creating the Basic Record
+        Basic basicRecord = Basic.newBuilder()
+                                        .setUsername(user.userName)
+                                        .setCountry(country)
+                                        .setEmail(user.email)
+                                        .setSubscribed(user.subscribed)
+                                        .build();
+        // Creating the User Record
+        User userRecord = User.newBuilder()
+                                .setBasic(basicRecord)
+                                .setHeader(headerRecord)
                                 .build();
         try {
-            emailData = maintenanceUseCaseRepository.createUser(emailData);
-            user.id = emailData.getUid();
+            userRecord = maintenanceUseCaseRepository.createUser(userRecord);
+            user.id = userRecord.getIds().getUid();
             user.add(linkTo(methodOn(UserPresentationController.class).createUser(user)).withSelfRel());
             return new ResponseEntity<>(user,HttpStatus.OK);
         } catch (Exception ex) {
@@ -63,7 +83,7 @@ public class UserPresentationController {
             @RequestParam(value = "user", defaultValue = "peter") String user,
             @RequestParam(value = "email", defaultValue = "peter@gmail.com") String email,
             @RequestParam(value = "subscribed", defaultValue = "true" ) boolean subscribed,
-            @RequestParam(value = "country", defaultValue = "true" ) String country)
+            @RequestParam(value = "country", defaultValue = "CH" ) String country)
     {
         UserPresentationModel account = new UserPresentationModel(user,email,subscribed,country);
         account.add(linkTo(methodOn(UserPresentationController.class).user(user, email, subscribed, country)).withSelfRel());

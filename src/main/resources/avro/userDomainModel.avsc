@@ -1,0 +1,193 @@
+[
+  {
+     "type": "record",
+     "namespace": "net.cloudburo.hexagon.demo.domain",
+     "name": "User",
+     "doc": "Information which used to describe basic user data",
+     "fields": [
+       {
+         "name": "header", "type":
+         {
+           "name": "Header",
+           "type": "record",
+           "doc": "The header record stores important (meta-) information about the record, certain fields are optional in case an initial creation is done",
+           "fields": [
+             {
+               "name": "avroFingerprint",
+               "type": "long",
+               "doc": "Mandatory: The fingerprint of the schema used by record producer, http://avro.apache.org/docs/1.8.2/spec.html#schema_fingerprints."
+             },
+             {
+               "name": "lastUpdateLoginId",
+               "type": "string",
+               "doc": "Mandatory: Login id  who produced the record"
+             },
+             {
+               "name": "lastUpdateTimestamp",
+               "type": [ "null", { "type":"long"}],
+               "logical-type": "time-micros",
+               "default": null,
+               "doc": "Optional: The Update timestamp when the record was persisted. Null for the update of a record, will be newly calculated by persistency adpapter"
+             }
+           ]
+         }
+       },
+       {
+         "name": "ids",
+         "default": null,
+         "doc": "Optional: Id section is only available after creation of a User record",
+         "type": [ "null",
+          {
+          "name": "Ids",
+          "type": "record",
+          "fields": [
+            {
+              "name": "uid",
+              "type":  "string",
+              "doc": "Mandatory:The unique identifier of this user record, i.e. ElasticSearch document UID. Null for the creation of a new record"
+            },
+            {
+              "name": "domain",
+              "type":  "string",
+              "doc": "Mandatory: The Identifier Domain"
+            },
+            { "name": "altKeys",
+              "default": null,
+              "type": [ "null",
+                  {
+                    "type": "array",
+                    "items": {
+                      "name": "Key",
+                      "type": "record",
+                      "fields" : [
+                        {
+                          "name": "id",
+                          "type": "string"
+                        },
+                        {
+                          "name": "domain",
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  }
+              ]
+            }
+          ]
+        }
+         ]
+       },
+       {
+         "name": "basic", "type":
+          {
+            "name": "Basic",
+            "type": "record",
+            "fields": [
+              {
+                "name": "username",
+                "type": "string",
+                "doc": "Unique user defined name of User in a System"
+              },
+              {
+                "name": "email",
+                "type": "string",
+                "doc": "User email address"
+              },
+              {
+                "name": "subscribed",
+                "type": "boolean",
+                "default": true,
+                "doc": "A property which defines whether User has a newsletter subscription"
+              },
+              {
+                "name": "country",
+                "type": "string",
+                "default": "XXX",
+                "doc": "ISO Country Code 3166-1 alpha-3: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3"
+              }
+            ]
+          }
+       },
+       { "name": "profile",
+         "default": null,
+         "type": [ "null",
+            {
+                "name": "Profile",
+                "type": "record",
+                "doc" : "record covers the data part of the overview tab",
+                "fields": [
+                    {
+                        "name": "businessActivities",
+                        "type": {
+                            "type": "array",
+                            "items": {
+                                "name": "Activity",
+                                "type": "record",
+                                "fields": [
+                                    {
+                                        "name": "descr",
+                                        "type": "string",
+                                        "doc": "textual natural language description - maximal 255 characters"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "name": "coreCompetencies",
+                        "type": {
+                            "type": "array",
+                            "items": {
+                                "name": "Competency",
+                                "type": "record",
+                                "fields": [
+                                    {
+                                        "name": "descr",
+                                        "type": "string",
+                                        "doc": "textual natural language description - maximal 255 characters"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "name": "corporateObjectives",
+                        "type": {
+                            "type": "array",
+                            "items": {
+                                "name": "objective",
+                                "type": "record",
+                                "fields": [
+                                    {
+                                        "name": "string",
+                                        "type": "string",
+                                        "doc": "textual natural language description - maximal 255 characters"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "name": "sustainabilities",
+                        "type": {
+                            "type": "array",
+                            "items": {
+                                "name": "Sustainability",
+                                "type": "record",
+                                "fields": [
+                                    {
+                                        "name": "string",
+                                        "type": "string",
+                                        "doc": "textual natural language description - maximal 255 characters"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                ]
+            }
+         ]
+       }
+     ]
+   }
+]

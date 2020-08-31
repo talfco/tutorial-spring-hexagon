@@ -1,6 +1,6 @@
 package net.cloudburo.hexagon.demo.port.in.maintenance.adapter.http.json.avro;
 
-import com.cloudburo.hexagon.demo.domain.EmailData;
+import net.cloudburo.hexagon.demo.domain.User;
 import net.cloudburo.hexagon.demo.kernel.usecase.MaintenanceUseCaseRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ public class UserDomainController {
     }
 
     @PostMapping(path = "/domain/maintain/user", consumes = "application/avro-json", produces = "application/avro-json")
-    public ResponseEntity<EmailData> createUser(@RequestBody EmailData user) {
+    public ResponseEntity<User> createUser(@RequestBody User user) {
         // We got our domain model request
         try {
             user = maintenanceUseCaseRepository.createUser(user);
