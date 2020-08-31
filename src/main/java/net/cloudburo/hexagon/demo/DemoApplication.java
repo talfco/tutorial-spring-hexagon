@@ -1,5 +1,7 @@
 package net.cloudburo.hexagon.demo;
 
+import net.cloudburo.hexagon.demo.schemaregistry.SchemaRegistry;
+import net.cloudburo.hexagon.demo.schemaregistry.SchemaRegistryFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -25,5 +27,4 @@ public class DemoApplication {
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
     }
-
 }

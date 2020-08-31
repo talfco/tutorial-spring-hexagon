@@ -1,20 +1,22 @@
 package net.cloudburo.hexagon.demo.schemaregistry;
 
-import net.cloudburo.hexagon.demo.schemaregistry.impl.elasticsearch.ElasticSearchSchemaRegistry;
-import net.cloudburo.hexagon.demo.schemaregistry.impl.file.FileSchemaRegistry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class SchemaRegistryFactory {
 
-    public static final String registryFileBased = "RF";
-    public static final String registryElasticSearchBased = "ES";
+    private static final Logger logger = LoggerFactory.getLogger(SchemaRegistryFactory.class);
+    public static SchemaRegistry registry = null;
 
-    public static SchemaRegistry getSchemaRegistry(String type) {
-        if (type.equals(registryFileBased))
-            return new FileSchemaRegistry();
-        if (type.equals(registryElasticSearchBased))
-            return new ElasticSearchSchemaRegistry();
-        else
-            return null;
+    public static SchemaRegistry getSchemaRegistry(String className) throws Exception {
+        if (registry == null) {
+            logger.info("Inject SchemaRegistry: "+ className);
+            registry = (SchemaRegistry) Class.forName(className).getDeclaredConstructor().newInstance();
+        }
+        return registry;
     }
 
 }

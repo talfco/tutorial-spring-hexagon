@@ -5,6 +5,15 @@ Leveraging the excellent work from:
 * https://gitlab.com/vkrava4/avro-converter/
 * https://github.com/thombergs/buckpal
 
+# Guidance
+
+* The Avro Schema can be found in `resources/avro/userDomainModel.avsc`
+* The generated classes will be in `net.cloudburo.hexagon.demo.domain`
+* Every JSON document get the fingerprint injected of the `userDomainModel.avsc` (i.e. it's version number)
+
+
+# Additional Information
+
 ## Spring HATEOAS
 The Spring HATEOAS project is a library of APIs that we can use to easily create REST representations that follow the 
 principle of HATEOAS _Hypertext as the Engine of Application State_.

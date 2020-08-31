@@ -3,7 +3,9 @@ package net.cloudburo.hexagon.demo.port.in.maintenance.adapter.http.json.present
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 import net.cloudburo.hexagon.demo.domain.Header;
+import net.cloudburo.hexagon.demo.port.out.persistence.adapter.sandbox.SandboxPersistency;
 import org.apache.avro.SchemaNormalization;
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import net.cloudburo.hexagon.demo.kernel.usecase.MaintenanceUseCaseRepository;
 @RestController
 public class UserPresentationController {
 
+    private static Logger logger = Logger.getLogger(UserPresentationController.class);
     final MaintenanceUseCaseRepository maintenanceUseCaseRepository;
 
     public UserPresentationController(final MaintenanceUseCaseRepository repository) {
@@ -38,6 +41,7 @@ public class UserPresentationController {
             user.add(linkTo(methodOn(UserPresentationController.class).readUser(userId)).withSelfRel());
             return new ResponseEntity<>(user,HttpStatus.OK);
         } catch (Exception ex) {
+            logger.error("Get failed", ex);
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
         }
     }
@@ -74,6 +78,7 @@ public class UserPresentationController {
             user.add(linkTo(methodOn(UserPresentationController.class).createUser(user)).withSelfRel());
             return new ResponseEntity<>(user,HttpStatus.OK);
         } catch (Exception ex) {
+            logger.error("Put failed", ex);
             return new ResponseEntity<>( HttpStatus.EXPECTATION_FAILED);
         }
     }
