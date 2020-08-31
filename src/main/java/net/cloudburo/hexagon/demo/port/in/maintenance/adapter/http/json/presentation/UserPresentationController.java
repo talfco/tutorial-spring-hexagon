@@ -2,8 +2,6 @@ package net.cloudburo.hexagon.demo.port.in.maintenance.adapter.http.json.present
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
-import net.cloudburo.hexagon.demo.domain.Header;
-import net.cloudburo.hexagon.demo.port.out.persistence.adapter.sandbox.SandboxPersistency;
 import org.apache.avro.SchemaNormalization;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpEntity;
@@ -11,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+// Only knows the domain model and our Hexagon kernel use case
+import net.cloudburo.hexagon.demo.domain.Header;
 import net.cloudburo.hexagon.demo.domain.User;
 import net.cloudburo.hexagon.demo.domain.Basic;
 import net.cloudburo.hexagon.demo.kernel.usecase.MaintenanceUseCaseRepository;
@@ -52,6 +52,8 @@ public class UserPresentationController {
         // We transform the request to our domain model
         String country = "CH";
 
+        // We provide our Avro Schema fingerprint as part of the request
+        // This information is key, which is stored as part of the JSON document
         long fingerprint = SchemaNormalization.parsingFingerprint64(User.getClassSchema());
 
         // Creating the Header Record

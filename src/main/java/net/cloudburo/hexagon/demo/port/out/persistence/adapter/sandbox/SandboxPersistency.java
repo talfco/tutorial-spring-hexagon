@@ -1,33 +1,22 @@
 package net.cloudburo.hexagon.demo.port.out.persistence.adapter.sandbox;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.google.gson.JsonObject;
+
 import net.cloudburo.hexagon.demo.domain.Header;
 import net.cloudburo.hexagon.demo.domain.Ids;
 import net.cloudburo.hexagon.demo.domain.User;
 import net.cloudburo.hexagon.demo.port.out.persistence.PersistencePort;
 import org.apache.avro.Schema;
-import org.apache.avro.SchemaNormalization;
-
-import org.apache.avro.generic.GenericData;
-import org.apache.avro.generic.GenericDatumReader;
-import org.apache.avro.generic.GenericRecord;
-import org.apache.avro.io.*;
-import org.apache.avro.specific.SpecificDatumReader;
-import org.apache.avro.specific.SpecificDatumWriter;
 import org.apache.log4j.Logger;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.HashMap;
 
 public class SandboxPersistency extends PersistencePort {
 
     private static Logger logger = Logger.getLogger(SandboxPersistency.class);
 
-    // For illustration purpose we persist the User DO as Avro JSON
+    // For illustration purpose we persist the User Data Object as Avro JSON
     private static HashMap<String, String> cache = new HashMap<>();
 
     @Override
@@ -68,8 +57,7 @@ public class SandboxPersistency extends PersistencePort {
     public User readUser(String id) throws Exception {
         String avroJsonDomainData = cache.get(id);
         // Retrieve the fingerprint, i.e. the Schema which was used to persist the JSON document
-        JsonParser jsonParser = new JsonParser();
-        JsonElement jsonElement = jsonParser.parse(avroJsonDomainData);
+        JsonElement jsonElement = ( new JsonParser()).parse(avroJsonDomainData);
         long docFingerprint = jsonElement.getAsJsonObject().getAsJsonObject("header").get("avroFingerprint").getAsLong();
         logger.info("Persisted Document has Avro Schema fingerprint: "+docFingerprint);
         User user;
