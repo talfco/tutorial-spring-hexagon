@@ -17,15 +17,13 @@ public class ElasticSearchSchemaRegistry extends SchemaRegistry {
         this.esManager = esManager;
     }
 
-    public  long registerSchema(Schema schema) throws IOException {
-        long fingerprint = getSchemaFingerprint(schema);
+    public void registerSchema(long fingerprint, Schema schema) throws IOException {
         String avroJSONSchema = schema.toString(true);
         String doc = "{";
         doc+= "\"namespace\":"+"\""+schema.getNamespace()+"."+schema.getName()+"\",";
         doc+= "\"avroschema\":"+avroJSONSchema;
         doc+= "}";
         esManager.createUpdateDocument(esIndex,"schema",doc,Long.valueOf(fingerprint).toString());
-        return fingerprint;
     }
 
     public  Schema getSchema(long fingerprint) throws IOException {

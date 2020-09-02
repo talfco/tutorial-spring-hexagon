@@ -1,7 +1,5 @@
 package net.cloudburo.hexagon.demo;
 
-import net.cloudburo.hexagon.demo.schemaregistry.SchemaRegistry;
-import net.cloudburo.hexagon.demo.schemaregistry.SchemaRegistryFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

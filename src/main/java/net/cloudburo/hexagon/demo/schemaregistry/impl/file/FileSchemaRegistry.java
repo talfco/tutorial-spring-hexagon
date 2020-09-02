@@ -12,8 +12,7 @@ public class FileSchemaRegistry extends SchemaRegistry {
 
     private final static String registryLocation = "schemaRegistry";
 
-    public  long registerSchema(Schema schema) throws IOException {
-        long fingerprint = getSchemaFingerprint(schema);
+    public  void registerSchema(long fingerprint, Schema schema) throws Exception {
         String fiName = Long.valueOf(fingerprint).toString()+"."+schema.getNamespace()+"."+schema.getName()+".avsc";
         // An Avro Schema File with a Fingerprint is immutable
         if (!new File(fiName).exists()) {
@@ -21,10 +20,9 @@ public class FileSchemaRegistry extends SchemaRegistry {
             out.println(schema.toString(true));
             out.close();
         }
-        return fingerprint;
     }
 
-    public  Schema getSchema(long fingerprint) throws IOException {
+    public  Schema getSchema(long fingerprint) throws Exception {
         File  dir = new File(registryLocation);
         File[] files = dir.listFiles(new FilenameFilter() {
             @Override

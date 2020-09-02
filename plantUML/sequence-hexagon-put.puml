@@ -1,0 +1,87 @@
+@startuml
+actor actor order 1
+participant ReactUI as ui order 5
+participant UserPresentationController as ps order 10 #coral
+participant MaintenanceUseCaseRepository as uc order 20
+participant SchemaRegistryImpl as sr order 30
+participant RegistryStoreImpl as rs order 35
+participant PersistencyPortImpl as sb order 40
+database JSONDocStore as pr order 100  #coral
+
+title "Hexagon Main Flow - Put Interaction"
+footer "Hexagon Tutorial - cloudburo.net"
+
+== Initialization ==
+autonumber 1
+uc -> sr: registerSchema(userDMDataSchema): fingerprint
+note left
+    This call should be done by every startup of the
+    application. Will make an existence check in the
+    registry of the actual Avro schema version used by the
+    application, if non-existence it will register it.
+end note
+sr -> sr: convertSchema2JSON(userDMDataSchema): avroSchemaJSON
+sr -> sr: calculateFingerprint(userDMDataSchema): fingerprint
+sr -> rs: storeSchema(fingerprint, avroSchemaJSON):
+rs -> rs: schemaExistenceCheck(fingerprint)
+note left
+  By executing by any restart a quick check in the
+  schema registry if the used schema is already registered
+  increases the resiliency of the app. Any deployment of
+  a changed schema will be automatically registered
+end note
+alt schema not registered yet
+    rs -> pr: store(fingerprint, avroSchemaJSON)
+end
+
+== PUT-Request ==
+autonumber 10
+actor -> ui: addNewUser
+ui -> ps: put(/maintain/user, userPsJSON)
+note right
+  Presentation Service is a HAEOTAS
+  SpringController, JSON Interface
+  according to OpenAPI3 spec
+end note
+ps -> ps: validateData(userPsData)
+ps -> ps: transformFromPS2DomainModel(userPsData): userDmData
+note left
+  Transformation de-localizes the data which
+  was sent,enrich with technical attribute
+  required from a domaindata point of view.
+end note
+ps -> uc: createUser(userDmData)
+note left
+  Any input port, communicates with kernel
+  component via domain model classes only
+  (Avro Schema based)
+end note
+uc -> uc: dataConsistencyChecks(userDmData)
+uc -> uc: applyBusinessLogic(userDmData)
+uc -> uc: enrichDomainMetaData(userDmData)
+uc -> sb: createUser(userDmData)
+note left
+  The kernel component communicates with
+  any out ports via domain model classes only
+end note
+sb -> sb: injectSchemaFingerprint(fingerprint,userDmData)
+sb -> sb: injectUID(uid, userDmData)
+sb -> sb: serializeDM2AvroJSON(userDmData): userDmJson
+sb -> pr: store(uid, userDmJson)
+sb --> uc: return: updated userDmData / uid =123
+uc --> ps:
+ps -> ps: transformDM2PS(userData): userPsJSON
+ps --> ui: return: updated userPsData
+autonumber 40
+
+autonumber 10
+autonumber 20
+autonumber 30
+
+
+autonumber 50
+
+autonumber 60
+
+
+@enduml

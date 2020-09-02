@@ -1,0 +1,57 @@
+@startuml
+actor actor order 1
+participant ReactUI as ui order 5
+participant UserPresentationController as ps order 10 #coral
+participant MaintenanceUseCaseRepository as uc order 20
+participant SchemaRegistry as sr order 30
+participant SandboxPersistency as sb order 40
+database JSONDocStore as pr order 100  #coral
+
+title "Hexagon Main Flow - Get Interaction"
+footer "Hexagon Tutorial - cloudburo.net"
+
+autonumber 1
+actor -> ui: getUser
+ui -> ps: get(/maintain/user/123)
+note right
+  Presentation Service is a HAEOTAS
+  SpringController, JSON Interface
+  according to OpenAPI3 spec
+end note
+ps -> uc: getUser(123)
+uc -> sb: getUser(123)
+sb -> pr: fetchJsonDoc(123): userDmJson
+sb -> sb: extractFingerprint(userDmJson): docFingerprint
+sb -> sb: checkAgainstActualFingerprint(docFingerprint)
+
+alt if docFingerprint == appFingerPrint
+    sb -> sb: deSerializeJSON(userDmJson): userDmData
+else if docFingerPrint != appFingerPrint
+    sb -> sr: getSchema(docFingerPrint): docAvroSchemaJSON
+    note left
+      If the stored document as another fingeprint we have
+      the associated schema from the registry
+    end note
+    sb -> sb: deSerializeJSON(docAvroSchemaJSON): docAvroSchemaJSON
+    sb -> sb: avroSchemaEvolution(docAvroSchema, appAvroSchema, docDmJson): userDmData
+    note left
+      This is key now: We leave it to Avro to migrate the document json based on another
+      schema version (i.e. fingerprint) to the current schema used by the App
+      The so called: Avro Schema Evolution
+    end note
+    sb -> sb: injectSchemaFingerprint(appFingerprint, userDmData):
+    note left
+        The migrated document will get the actual schema fingerprint
+    end note
+    sb -> pr: updateJsonDoc(123, userDmData.toJson())
+    note left
+        Finally we persist the migrated (to the actual version) JsonDoc.
+    end note
+end
+
+sb --> uc: return: updated userDmData / uid =123
+uc --> ps:
+ps -> ps: transformDM2PS(userData): userPsJSON
+ps --> ui: return: updated userPsData
+
+@enduml

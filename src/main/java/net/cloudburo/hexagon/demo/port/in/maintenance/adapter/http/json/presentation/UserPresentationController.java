@@ -15,7 +15,6 @@ import net.cloudburo.hexagon.demo.domain.User;
 import net.cloudburo.hexagon.demo.domain.Basic;
 import net.cloudburo.hexagon.demo.kernel.usecase.MaintenanceUseCaseRepository;
 
-
 @RestController
 public class UserPresentationController {
 
@@ -47,10 +46,13 @@ public class UserPresentationController {
     }
 
     @PostMapping(path = "/presentation/maintain/user", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<UserPresentationModel> createUser(@RequestBody UserPresentationModel user) {
+    public ResponseEntity<UserPresentationModel> createUser(@RequestBody UserPresentationModel userPresentationModel) {
 
-        // We transform the request to our domain model
-        String country = "CH";
+        // We transform the request to our domain model from locailzed values, a small example
+        String country = "XX";
+        if (userPresentationModel.equals("Schweiz")) {
+            country = "CH";
+        }
 
         // We provide our Avro Schema fingerprint as part of the request
         // This information is key, which is stored as part of the JSON document
@@ -64,10 +66,10 @@ public class UserPresentationController {
 
         // Creating the Basic Record
         Basic basicRecord = Basic.newBuilder()
-                                        .setUsername(user.userName)
+                                        .setUsername(userPresentationModel.userName)
                                         .setCountry(country)
-                                        .setEmail(user.email)
-                                        .setSubscribed(user.subscribed)
+                                        .setEmail(userPresentationModel.email)
+                                        .setSubscribed(userPresentationModel.subscribed)
                                         .build();
         // Creating the User Record
         User userRecord = User.newBuilder()
@@ -76,9 +78,9 @@ public class UserPresentationController {
                                 .build();
         try {
             userRecord = maintenanceUseCaseRepository.createUser(userRecord);
-            user.id = userRecord.getIds().getUid();
-            user.add(linkTo(methodOn(UserPresentationController.class).createUser(user)).withSelfRel());
-            return new ResponseEntity<>(user,HttpStatus.OK);
+            userPresentationModel.id = userRecord.getIds().getUid();
+            userPresentationModel.add(linkTo(methodOn(UserPresentationController.class).createUser(userPresentationModel)).withSelfRel());
+            return new ResponseEntity<>(userPresentationModel,HttpStatus.OK);
         } catch (Exception ex) {
             logger.error("Put failed", ex);
             return new ResponseEntity<>( HttpStatus.EXPECTATION_FAILED);

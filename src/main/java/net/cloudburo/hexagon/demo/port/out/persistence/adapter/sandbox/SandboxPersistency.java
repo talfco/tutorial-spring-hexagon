@@ -66,7 +66,7 @@ public class SandboxPersistency extends PersistencePort {
             user = deSerializeJSON(avroJsonDomainData);
         } else {
             logger.info("Persisted Document has another Avro Schema fingerprint, go for Schema Evolution Process");
-            Schema schema = this.getSchema(docFingerprint);
+            Schema schema = this.registry.getSchema(docFingerprint);
             user = schemaEvolutionJSON(avroJsonDomainData,schema, User.getClassSchema());
         }
         return user;

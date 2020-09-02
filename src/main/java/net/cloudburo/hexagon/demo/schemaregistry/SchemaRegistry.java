@@ -1,16 +1,10 @@
 package net.cloudburo.hexagon.demo.schemaregistry;
 
 import org.apache.avro.Schema;
-import org.apache.avro.SchemaNormalization;
-import java.io.IOException;
-
 
 public abstract class SchemaRegistry {
 
-    public  abstract long registerSchema(Schema schema) throws IOException;
-    public  abstract Schema getSchema(long fingerprint) throws IOException;
+    public  abstract void registerSchema(long fingerprint, Schema schema) throws Exception;
+    public  abstract Schema getSchema(long fingerprint) throws Exception;
 
-    public long getSchemaFingerprint(Schema schema) {
-        return SchemaNormalization.parsingFingerprint64(schema);
-    }
 }
