@@ -29,5 +29,11 @@ Instead, Spring HATEOAS offers three abstractions for creating the URI – `Repr
 
 We can use these to create the metadata and associate it to the resource representation.
 
-Reference: https://www.baeldung.com/spring-hateoas-tutorial
+References: 
+
+*   https://www.baeldung.com/spring-hateoas-tutorial
+*   https://www.baeldung.com/apache-camel-spring-boot
+*   https://www.baeldung.com/apache-camel-intro
+*   https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html#creating-http-request-files
+
 

@@ -1,5 +1,7 @@
 package net.cloudburo.hexagon.demo;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -16,6 +18,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class DemoApplication {
 
+    private static final Logger logger = LoggerFactory.getLogger(DemoApplication.class);
 
     /**
      * The main() method uses Spring Boot’s SpringApplication.run() method to launch an application. Did you notice
@@ -23,6 +26,10 @@ public class DemoApplication {
      * Java and you did not have to deal with configuring any plumbing or infrastructure.
      */
     public static void main(String[] args) {
+        // We took out the camel servlet here
+        // ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("camelContext.xml");
+        logger.debug("Starting DemoApplication");
         SpringApplication.run(DemoApplication.class, args);
     }
+
 }

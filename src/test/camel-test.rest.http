@@ -1,0 +1,25 @@
+
+### Presentation Service Check:
+POST http://localhost:8080/presentation/maintain/user
+Content-Type: application/json
+
+{"userName": "test", "email": "test@test1.com", "subscribed": false, "country": "Switzerland"}
+
+
+###  Retrieving the value
+GET http://localhost:8080/presentation/maintain/user/12345678
+Accept: application/json
+
+
+###
+POST http://localhost:8080/camel/api/bean
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "World"
+}
+
+
+
+###
