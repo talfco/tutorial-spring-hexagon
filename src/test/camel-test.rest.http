@@ -1,4 +1,6 @@
 
+###
+
 ### Presentation Service Check:
 POST http://localhost:8080/presentation/maintain/user
 Content-Type: application/json
@@ -15,11 +17,15 @@ Accept: application/json
 POST http://localhost:8080/camel/api/bean
 Content-Type: application/json
 
+###
+GET http://localhost:8080/camel/api/bean
+Content-Type: application/json
+
 {
   "id": 1,
   "name": "World"
 }
 
-
-
 ###
+GET http://localhost:8080/camel/api-doc
+Accept: application/json

@@ -1,10 +1,18 @@
 server:
   port: 8080
 
-# for example purposes of Camel version 2.18 and below
 injector:
   api:
     path: '/camel'
+  staging:
+      source: 'staging/inbound/source'
+      deadletter: 'staging/inbound/dead.letter'
+      split:
+        size: 10000
+        target:
+          fixedlen: 'staging/inbound/split/fixedlen'
+          csv: 'staging/inbound/split/csv'
+          avro: 'staging/inbound/split/avsc'
 
 camel:
   springboot:

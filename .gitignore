@@ -29,3 +29,6 @@ build/
 
 ### VS Code ###
 .vscode/
+/staging/inbound/dead.letter/
+/staging/inbound/source/
+/staging/inbound/split/
