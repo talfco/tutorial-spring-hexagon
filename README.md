@@ -33,6 +33,12 @@ Large Data Files for Testing
 
 * https://data.world/acled/71d852e4-e41e-4320-a770-9fc2bb87fb64
 
+Data Sets
+
+* Covid-19 Coronavirus EU Open Data Portal: Data on the geographic distribution of COVID-19 cases worldwide
+  * [Data Set URL](https://data.europa.eu/euodp/en/data/dataset/covid-19-coronavirus-data/resource/55e8f966-d5c8-438e-85bc-c7a5a26f4863)
+ released under [Creative Commons 4.0](https://creativecommons.org/licenses/by/4.0/)
+  
 
 References: 
 

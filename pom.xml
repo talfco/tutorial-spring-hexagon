@@ -67,6 +67,11 @@
             <artifactId>camel-swagger-java-starter</artifactId>
             <version>${camel.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-bindy-starter</artifactId>
+            <version>${camel.version}</version>
+        </dependency>
         <!-- Jackson Fixiing
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>

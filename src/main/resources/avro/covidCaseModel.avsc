@@ -1,0 +1,59 @@
+[
+   {
+      "type": "record",
+      "namespace": "net.cloudburo.hexagon.demo.domain.covid",
+      "name": "CovidCase",
+      "doc": "Information which used to describe covid geographic distribution per region",
+      "fields": [
+         {
+            "name": "reportingDate",
+            "type": "long",
+            "logicalType": "date"
+         },
+         {
+            "name": "reportingDay",
+            "type": "int"
+         },
+         {
+            "name": "reportingMonth",
+            "type": "int"
+         },
+         {
+            "name": "reportingYear",
+            "type": "int"
+         },
+         {
+            "name": "cases",
+            "type": "int"
+         },
+         {
+            "name": "deaths",
+            "type": "int"
+         },
+         {
+            "name": "countriesAndTerritories",
+            "type": "string"
+         },
+         {
+            "name": "geoId",
+            "type": "string"
+         },
+         {
+            "name": "countryTerritoryCode",
+            "type": "string"
+         },
+         {
+            "name": "population2019",
+            "type": "int"
+         },
+         {
+            "name": "continent",
+            "type": "string"
+         },
+         {
+            "name": "cumNum14daysPer1000",
+            "type": "float"
+         }
+      ]
+   }
+]
