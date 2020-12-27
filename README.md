@@ -45,7 +45,9 @@ References:
 *   https://www.baeldung.com/spring-hateoas-tutorial
 *   https://www.baeldung.com/apache-camel-spring-boot
 *   https://www.baeldung.com/apache-camel-intro
+*   https://www.baeldung.com/configuration-properties-in-spring-boot
 *   https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html#creating-http-request-files
 
+* https://www.elastic.co/webinars/moving-from-on-prem-to-managed-services-with-elastic-on-azure?blade=kibanafeed
 
-
+* https://www.elastic.co/guide/en/elasticsearch/reference/current/removal-of-types.html#:~:text=Since%20the%20first%20release%20of,type%20and%20a%20tweet%20type.

@@ -5,14 +5,27 @@ injector:
   api:
     path: '/camel'
   staging:
-      source: 'staging/inbound/source'
-      deadletter: 'staging/inbound/dead.letter'
-      split:
-        size: 10000
-        target:
-          fixedlen: 'staging/inbound/split/fixedlen'
-          csv: 'staging/inbound/split/csv'
-          avro: 'staging/inbound/split/avsc'
+    source: 'staging/inbound/source'
+    deadletter: 'staging/inbound/dead.letter'
+    split:
+      size: 10000
+      target:
+        fixedlen: 'staging/inbound/split/fixedlen'
+        csv: 'staging/inbound/split/csv'
+        avro: 'staging/inbound/split/avro'
+  persistency:
+    schemaregistry: 'net.cloudburo.hexagon.demo.schemaregistry.impl.sandbox.SandboxRegistry'
+    user:
+      portadapter: 'userPersistencyAdapter'
+      index: 'clb-hexapp-user'
+    covid:
+      portadapter: 'covidPersistencyAdapter'
+      index: 'clb-hexapp-covid'
+  persistence:
+      elasticsearch:  # Will work with a default single node ES cluster (unprotected)
+        esurl: 'http://cloudburo1:9200'
+        username: ''
+        password: ''
 
 camel:
   springboot:

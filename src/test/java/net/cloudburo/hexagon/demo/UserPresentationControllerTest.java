@@ -1,7 +1,7 @@
 package net.cloudburo.hexagon.demo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.cloudburo.hexagon.demo.kernel.usecase.MaintenanceUseCaseRepository;
+import net.cloudburo.hexagon.demo.kernel.usecase.UserUseCaseRepository;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -20,7 +20,7 @@ public class UserPresentationControllerTest {
     private ObjectMapper mapper;
 
     @MockBean
-    private MaintenanceUseCaseRepository maintenanceUseCaseRepository;
+    private UserUseCaseRepository maintenanceUseCaseRepository;
 
     private static String BASE_PATH = "http://localhost:8080/presentation";
     private static String MEMBERSHIPS_PATH = "/maintain/user";

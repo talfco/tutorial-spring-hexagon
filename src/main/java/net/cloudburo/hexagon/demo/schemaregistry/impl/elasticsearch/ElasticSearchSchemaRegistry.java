@@ -1,7 +1,7 @@
 package net.cloudburo.hexagon.demo.schemaregistry.impl.elasticsearch;
 
 import com.google.gson.JsonObject;
-import net.cloudburo.hexagon.demo.port.out.persistence.adapter.elasticsearch.ESPersistencyManager;
+import net.cloudburo.hexagon.demo.port.out.covid.persistence.adapter.elasticsearch.ESPersistencyManager;
 import net.cloudburo.hexagon.demo.schemaregistry.SchemaRegistry;
 import org.apache.avro.Schema;
 
