@@ -2,9 +2,41 @@
    {
       "type": "record",
       "namespace": "net.cloudburo.hexagon.demo.domain.covid",
+      "name": "Header",
+      "doc": "The header record stores important (meta-) information about the record, certain fields are optional in case an initial creation is done",
+      "fields": [
+         {
+            "name": "avroFingerprint",
+            "type": "long",
+            "doc": "The fingerprint of the schema used by record producer, http://avro.apache.org/docs/1.8.2/spec.html#schema_fingerprints."
+         },
+         {
+            "name": "lastUpdateLoginId",
+            "type": [ "null", { "type":"string"}],
+            "default": null,
+            "doc": "Login id  who produced the record"
+         },
+         {
+            "name": "lastUpdateTimestamp",
+            "type": [ "null", { "type":"long"}],
+            "default": null,
+            "logical-type": "time-micros",
+            "doc": "The Update timestamp when the record was persisted. Null for the update of a record, will be newly calculated by persistency adpapter"
+         }
+      ]
+   },
+   {
+      "type": "record",
+      "namespace": "net.cloudburo.hexagon.demo.domain.covid",
       "name": "CovidCase",
       "doc": "Information which used to describe covid geographic distribution per region",
       "fields": [
+         {
+            "name": "header",
+            "type": [ "null", "Header"],
+            "default": null
+
+         },
          {
             "name": "reportingDate",
             "type": "long",

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import net.cloudburo.hexagon.demo.domain.Header;
 import net.cloudburo.hexagon.demo.domain.User;
 import net.cloudburo.hexagon.demo.domain.Basic;
-import net.cloudburo.hexagon.demo.kernel.usecase.UserUseCaseRepository;
+import net.cloudburo.hexagon.demo.kernel.user.UserUseCaseRepository;
 
 @RestController
 public class UserPresentationController {

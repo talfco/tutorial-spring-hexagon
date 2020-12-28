@@ -4,9 +4,11 @@ import net.cloudburo.hexagon.demo.schemaregistry.SchemaRegistry;
 import org.apache.avro.Schema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 
+@Component
 public class SandboxRegistry extends SchemaRegistry {
 
     private static final Logger logger = LoggerFactory.getLogger(SandboxRegistry.class);

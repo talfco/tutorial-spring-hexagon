@@ -4,9 +4,11 @@ import com.google.gson.JsonObject;
 import net.cloudburo.hexagon.demo.port.out.covid.persistence.adapter.elasticsearch.ESPersistencyManager;
 import net.cloudburo.hexagon.demo.schemaregistry.SchemaRegistry;
 import org.apache.avro.Schema;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+@Component
 public class ElasticSearchSchemaRegistry extends SchemaRegistry {
 
     private static final String esIndex = "avroschema";

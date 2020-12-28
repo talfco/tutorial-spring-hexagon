@@ -1,0 +1,15 @@
+@startuml
+
+package "Hexagon App" {
+CovidPort - [Kernel]
+UserPort - [Kernel]
+[Covid Port]
+}
+
+package "Other Groups" {
+FTP - [Second Component]
+
+[First Component] --> FTP
+}
+
+@enduml

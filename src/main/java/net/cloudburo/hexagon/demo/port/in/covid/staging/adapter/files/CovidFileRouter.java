@@ -1,6 +1,6 @@
 package net.cloudburo.hexagon.demo.port.in.covid.staging.adapter.files;
 
-import net.cloudburo.hexagon.demo.kernel.usecase.CovidUseCaseRepository;
+import net.cloudburo.hexagon.demo.kernel.covid.CovidUseCaseRepository;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
@@ -60,7 +60,7 @@ public class CovidFileRouter extends RouteBuilder  {
                         public void process(Exchange exchange) throws Exception {
                             Message in = exchange.getIn();
                             CovidCaseRecord rec =(CovidCaseRecord) in.getBody();
-                            covidUseCaseRepository.addCovidCase(rec.transformToDomainClass());
+                            covidUseCaseRepository.addDailyCovidCases(rec.transformToDomainClass());
                         }
                     })
                 .end()

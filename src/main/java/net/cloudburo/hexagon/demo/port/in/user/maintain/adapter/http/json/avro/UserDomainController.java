@@ -1,7 +1,7 @@
 package net.cloudburo.hexagon.demo.port.in.user.maintain.adapter.http.json.avro;
 
 import net.cloudburo.hexagon.demo.domain.User;
-import net.cloudburo.hexagon.demo.kernel.usecase.UserUseCaseRepository;
+import net.cloudburo.hexagon.demo.kernel.user.UserUseCaseRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

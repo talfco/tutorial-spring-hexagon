@@ -10,6 +10,6 @@ The adapter implementation will be wired with UseCaseRepository
  */
 public interface CovidStagingPort {
 
-    public void addCovidCase(CovidCase caseRecord) throws Exception;
+    public void addDailyCovidCases(CovidCase caseRecord) throws Exception;
 }
 

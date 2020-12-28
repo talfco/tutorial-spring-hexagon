@@ -2,12 +2,14 @@ package net.cloudburo.hexagon.demo.schemaregistry.impl.file;
 
 import net.cloudburo.hexagon.demo.schemaregistry.SchemaRegistry;
 import org.apache.avro.Schema;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.util.Iterator;
 import java.util.List;
 
+@Component
 public class FileSchemaRegistry extends SchemaRegistry {
 
     private final static String registryLocation = "schemaRegistry";

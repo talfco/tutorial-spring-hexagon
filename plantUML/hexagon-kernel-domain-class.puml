@@ -1,0 +1,39 @@
+@startuml
+
+package Hexagon-Kernel:Covid {
+
+    interface PersistencPort <<port.out.covid>> {
+      +persistDailyCovidRecord()
+      +persistWeeklyCovidRecord()
+      +persistFinancialPolicyRespRecord()
+    }
+
+    interface StagingPort <<port.in.covid>> {
+     +addDailyCovidCases()
+     +addWeeklyCovidCases()
+     +addFinancialSectorPolicyResponse()
+    }
+
+    class CovidUseCaseRepository <<kernel.covid>> {
+     +addDailyCovidCases()
+     +addWeeklyCovidCases()
+     +addFinancialSectorPolicyResponse()
+    }
+
+    StagingPort <|- CovidUseCaseRepository
+    CovidUseCaseRepository -> PersistencPort
+
+}
+
+package Hexagon-Domain:Covid {
+
+    class CovidCase << domain.covid >>
+    class CovidCaseWeekly << domain.covid >>
+    class FinancialSectorPolicyReply << domain.covid >>
+
+    CovidUseCaseRepository --> CovidCase
+    CovidUseCaseRepository --> CovidCaseWeekly
+    CovidUseCaseRepository --> FinancialSectorPolicyReply
+}
+
+@enduml

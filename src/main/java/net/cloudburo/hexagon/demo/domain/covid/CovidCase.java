@@ -14,8 +14,8 @@ import org.apache.avro.message.SchemaStore;
 /** Information which used to describe covid geographic distribution per region */
 @org.apache.avro.specific.AvroGenerated
 public class CovidCase extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = -2939817328911387633L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"CovidCase\",\"namespace\":\"net.cloudburo.hexagon.demo.domain.covid\",\"doc\":\"Information which used to describe covid geographic distribution per region\",\"fields\":[{\"name\":\"reportingDate\",\"type\":\"long\",\"logicalType\":\"date\"},{\"name\":\"reportingDay\",\"type\":\"int\"},{\"name\":\"reportingMonth\",\"type\":\"int\"},{\"name\":\"reportingYear\",\"type\":\"int\"},{\"name\":\"cases\",\"type\":\"int\"},{\"name\":\"deaths\",\"type\":\"int\"},{\"name\":\"countriesAndTerritories\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"geoId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"countryTerritoryCode\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"population2019\",\"type\":\"int\"},{\"name\":\"continent\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"cumNum14daysPer1000\",\"type\":\"float\"}]}");
+  private static final long serialVersionUID = -7951777745138493761L;
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"CovidCase\",\"namespace\":\"net.cloudburo.hexagon.demo.domain.covid\",\"doc\":\"Information which used to describe covid geographic distribution per region\",\"fields\":[{\"name\":\"header\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Header\",\"doc\":\"The header record stores important (meta-) information about the record, certain fields are optional in case an initial creation is done\",\"fields\":[{\"name\":\"avroFingerprint\",\"type\":\"long\",\"doc\":\"The fingerprint of the schema used by record producer, http://avro.apache.org/docs/1.8.2/spec.html#schema_fingerprints.\"},{\"name\":\"lastUpdateLoginId\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"doc\":\"Login id  who produced the record\",\"default\":null},{\"name\":\"lastUpdateTimestamp\",\"type\":[\"null\",\"long\"],\"doc\":\"The Update timestamp when the record was persisted. Null for the update of a record, will be newly calculated by persistency adpapter\",\"default\":null,\"logical-type\":\"time-micros\"}]}],\"default\":null},{\"name\":\"reportingDate\",\"type\":\"long\",\"logicalType\":\"date\"},{\"name\":\"reportingDay\",\"type\":\"int\"},{\"name\":\"reportingMonth\",\"type\":\"int\"},{\"name\":\"reportingYear\",\"type\":\"int\"},{\"name\":\"cases\",\"type\":\"int\"},{\"name\":\"deaths\",\"type\":\"int\"},{\"name\":\"countriesAndTerritories\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"geoId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"countryTerritoryCode\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"population2019\",\"type\":\"int\"},{\"name\":\"continent\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"cumNum14daysPer1000\",\"type\":\"float\"}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static SpecificData MODEL$ = new SpecificData();
@@ -52,6 +52,7 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
     return DECODER.decode(b);
   }
 
+   private net.cloudburo.hexagon.demo.domain.covid.Header header;
    private long reportingDate;
    private int reportingDay;
    private int reportingMonth;
@@ -74,6 +75,7 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
 
   /**
    * All-args constructor.
+   * @param header The new value for header
    * @param reportingDate The new value for reportingDate
    * @param reportingDay The new value for reportingDay
    * @param reportingMonth The new value for reportingMonth
@@ -87,7 +89,8 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
    * @param continent The new value for continent
    * @param cumNum14daysPer1000 The new value for cumNum14daysPer1000
    */
-  public CovidCase(java.lang.Long reportingDate, java.lang.Integer reportingDay, java.lang.Integer reportingMonth, java.lang.Integer reportingYear, java.lang.Integer cases, java.lang.Integer deaths, java.lang.String countriesAndTerritories, java.lang.String geoId, java.lang.String countryTerritoryCode, java.lang.Integer population2019, java.lang.String continent, java.lang.Float cumNum14daysPer1000) {
+  public CovidCase(net.cloudburo.hexagon.demo.domain.covid.Header header, java.lang.Long reportingDate, java.lang.Integer reportingDay, java.lang.Integer reportingMonth, java.lang.Integer reportingYear, java.lang.Integer cases, java.lang.Integer deaths, java.lang.String countriesAndTerritories, java.lang.String geoId, java.lang.String countryTerritoryCode, java.lang.Integer population2019, java.lang.String continent, java.lang.Float cumNum14daysPer1000) {
+    this.header = header;
     this.reportingDate = reportingDate;
     this.reportingDay = reportingDay;
     this.reportingMonth = reportingMonth;
@@ -106,18 +109,19 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
   // Used by DatumWriter.  Applications should not call.
   public java.lang.Object get(int field$) {
     switch (field$) {
-    case 0: return reportingDate;
-    case 1: return reportingDay;
-    case 2: return reportingMonth;
-    case 3: return reportingYear;
-    case 4: return cases;
-    case 5: return deaths;
-    case 6: return countriesAndTerritories;
-    case 7: return geoId;
-    case 8: return countryTerritoryCode;
-    case 9: return population2019;
-    case 10: return continent;
-    case 11: return cumNum14daysPer1000;
+    case 0: return header;
+    case 1: return reportingDate;
+    case 2: return reportingDay;
+    case 3: return reportingMonth;
+    case 4: return reportingYear;
+    case 5: return cases;
+    case 6: return deaths;
+    case 7: return countriesAndTerritories;
+    case 8: return geoId;
+    case 9: return countryTerritoryCode;
+    case 10: return population2019;
+    case 11: return continent;
+    case 12: return cumNum14daysPer1000;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -126,21 +130,31 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
   @SuppressWarnings(value="unchecked")
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
-    case 0: reportingDate = (java.lang.Long)value$; break;
-    case 1: reportingDay = (java.lang.Integer)value$; break;
-    case 2: reportingMonth = (java.lang.Integer)value$; break;
-    case 3: reportingYear = (java.lang.Integer)value$; break;
-    case 4: cases = (java.lang.Integer)value$; break;
-    case 5: deaths = (java.lang.Integer)value$; break;
-    case 6: countriesAndTerritories = (java.lang.String)value$; break;
-    case 7: geoId = (java.lang.String)value$; break;
-    case 8: countryTerritoryCode = (java.lang.String)value$; break;
-    case 9: population2019 = (java.lang.Integer)value$; break;
-    case 10: continent = (java.lang.String)value$; break;
-    case 11: cumNum14daysPer1000 = (java.lang.Float)value$; break;
+    case 0: header = (net.cloudburo.hexagon.demo.domain.covid.Header)value$; break;
+    case 1: reportingDate = (java.lang.Long)value$; break;
+    case 2: reportingDay = (java.lang.Integer)value$; break;
+    case 3: reportingMonth = (java.lang.Integer)value$; break;
+    case 4: reportingYear = (java.lang.Integer)value$; break;
+    case 5: cases = (java.lang.Integer)value$; break;
+    case 6: deaths = (java.lang.Integer)value$; break;
+    case 7: countriesAndTerritories = (java.lang.String)value$; break;
+    case 8: geoId = (java.lang.String)value$; break;
+    case 9: countryTerritoryCode = (java.lang.String)value$; break;
+    case 10: population2019 = (java.lang.Integer)value$; break;
+    case 11: continent = (java.lang.String)value$; break;
+    case 12: cumNum14daysPer1000 = (java.lang.Float)value$; break;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
+
+  /**
+   * Gets the value of the 'header' field.
+   * @return The value of the 'header' field.
+   */
+  public net.cloudburo.hexagon.demo.domain.covid.Header getHeader() {
+    return header;
+  }
+
 
   /**
    * Gets the value of the 'reportingDate' field.
@@ -282,6 +296,8 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
   public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<CovidCase>
     implements org.apache.avro.data.RecordBuilder<CovidCase> {
 
+    private net.cloudburo.hexagon.demo.domain.covid.Header header;
+    private net.cloudburo.hexagon.demo.domain.covid.Header.Builder headerBuilder;
     private long reportingDate;
     private int reportingDay;
     private int reportingMonth;
@@ -306,53 +322,60 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
      */
     private Builder(net.cloudburo.hexagon.demo.domain.covid.CovidCase.Builder other) {
       super(other);
-      if (isValidValue(fields()[0], other.reportingDate)) {
-        this.reportingDate = data().deepCopy(fields()[0].schema(), other.reportingDate);
+      if (isValidValue(fields()[0], other.header)) {
+        this.header = data().deepCopy(fields()[0].schema(), other.header);
         fieldSetFlags()[0] = true;
       }
-      if (isValidValue(fields()[1], other.reportingDay)) {
-        this.reportingDay = data().deepCopy(fields()[1].schema(), other.reportingDay);
+      if (other.hasHeaderBuilder()) {
+        this.headerBuilder = net.cloudburo.hexagon.demo.domain.covid.Header.newBuilder(other.getHeaderBuilder());
+      }
+      if (isValidValue(fields()[1], other.reportingDate)) {
+        this.reportingDate = data().deepCopy(fields()[1].schema(), other.reportingDate);
         fieldSetFlags()[1] = true;
       }
-      if (isValidValue(fields()[2], other.reportingMonth)) {
-        this.reportingMonth = data().deepCopy(fields()[2].schema(), other.reportingMonth);
+      if (isValidValue(fields()[2], other.reportingDay)) {
+        this.reportingDay = data().deepCopy(fields()[2].schema(), other.reportingDay);
         fieldSetFlags()[2] = true;
       }
-      if (isValidValue(fields()[3], other.reportingYear)) {
-        this.reportingYear = data().deepCopy(fields()[3].schema(), other.reportingYear);
+      if (isValidValue(fields()[3], other.reportingMonth)) {
+        this.reportingMonth = data().deepCopy(fields()[3].schema(), other.reportingMonth);
         fieldSetFlags()[3] = true;
       }
-      if (isValidValue(fields()[4], other.cases)) {
-        this.cases = data().deepCopy(fields()[4].schema(), other.cases);
+      if (isValidValue(fields()[4], other.reportingYear)) {
+        this.reportingYear = data().deepCopy(fields()[4].schema(), other.reportingYear);
         fieldSetFlags()[4] = true;
       }
-      if (isValidValue(fields()[5], other.deaths)) {
-        this.deaths = data().deepCopy(fields()[5].schema(), other.deaths);
+      if (isValidValue(fields()[5], other.cases)) {
+        this.cases = data().deepCopy(fields()[5].schema(), other.cases);
         fieldSetFlags()[5] = true;
       }
-      if (isValidValue(fields()[6], other.countriesAndTerritories)) {
-        this.countriesAndTerritories = data().deepCopy(fields()[6].schema(), other.countriesAndTerritories);
+      if (isValidValue(fields()[6], other.deaths)) {
+        this.deaths = data().deepCopy(fields()[6].schema(), other.deaths);
         fieldSetFlags()[6] = true;
       }
-      if (isValidValue(fields()[7], other.geoId)) {
-        this.geoId = data().deepCopy(fields()[7].schema(), other.geoId);
+      if (isValidValue(fields()[7], other.countriesAndTerritories)) {
+        this.countriesAndTerritories = data().deepCopy(fields()[7].schema(), other.countriesAndTerritories);
         fieldSetFlags()[7] = true;
       }
-      if (isValidValue(fields()[8], other.countryTerritoryCode)) {
-        this.countryTerritoryCode = data().deepCopy(fields()[8].schema(), other.countryTerritoryCode);
+      if (isValidValue(fields()[8], other.geoId)) {
+        this.geoId = data().deepCopy(fields()[8].schema(), other.geoId);
         fieldSetFlags()[8] = true;
       }
-      if (isValidValue(fields()[9], other.population2019)) {
-        this.population2019 = data().deepCopy(fields()[9].schema(), other.population2019);
+      if (isValidValue(fields()[9], other.countryTerritoryCode)) {
+        this.countryTerritoryCode = data().deepCopy(fields()[9].schema(), other.countryTerritoryCode);
         fieldSetFlags()[9] = true;
       }
-      if (isValidValue(fields()[10], other.continent)) {
-        this.continent = data().deepCopy(fields()[10].schema(), other.continent);
+      if (isValidValue(fields()[10], other.population2019)) {
+        this.population2019 = data().deepCopy(fields()[10].schema(), other.population2019);
         fieldSetFlags()[10] = true;
       }
-      if (isValidValue(fields()[11], other.cumNum14daysPer1000)) {
-        this.cumNum14daysPer1000 = data().deepCopy(fields()[11].schema(), other.cumNum14daysPer1000);
+      if (isValidValue(fields()[11], other.continent)) {
+        this.continent = data().deepCopy(fields()[11].schema(), other.continent);
         fieldSetFlags()[11] = true;
+      }
+      if (isValidValue(fields()[12], other.cumNum14daysPer1000)) {
+        this.cumNum14daysPer1000 = data().deepCopy(fields()[12].schema(), other.cumNum14daysPer1000);
+        fieldSetFlags()[12] = true;
       }
     }
 
@@ -362,54 +385,133 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
      */
     private Builder(net.cloudburo.hexagon.demo.domain.covid.CovidCase other) {
             super(SCHEMA$);
-      if (isValidValue(fields()[0], other.reportingDate)) {
-        this.reportingDate = data().deepCopy(fields()[0].schema(), other.reportingDate);
+      if (isValidValue(fields()[0], other.header)) {
+        this.header = data().deepCopy(fields()[0].schema(), other.header);
         fieldSetFlags()[0] = true;
       }
-      if (isValidValue(fields()[1], other.reportingDay)) {
-        this.reportingDay = data().deepCopy(fields()[1].schema(), other.reportingDay);
+      this.headerBuilder = null;
+      if (isValidValue(fields()[1], other.reportingDate)) {
+        this.reportingDate = data().deepCopy(fields()[1].schema(), other.reportingDate);
         fieldSetFlags()[1] = true;
       }
-      if (isValidValue(fields()[2], other.reportingMonth)) {
-        this.reportingMonth = data().deepCopy(fields()[2].schema(), other.reportingMonth);
+      if (isValidValue(fields()[2], other.reportingDay)) {
+        this.reportingDay = data().deepCopy(fields()[2].schema(), other.reportingDay);
         fieldSetFlags()[2] = true;
       }
-      if (isValidValue(fields()[3], other.reportingYear)) {
-        this.reportingYear = data().deepCopy(fields()[3].schema(), other.reportingYear);
+      if (isValidValue(fields()[3], other.reportingMonth)) {
+        this.reportingMonth = data().deepCopy(fields()[3].schema(), other.reportingMonth);
         fieldSetFlags()[3] = true;
       }
-      if (isValidValue(fields()[4], other.cases)) {
-        this.cases = data().deepCopy(fields()[4].schema(), other.cases);
+      if (isValidValue(fields()[4], other.reportingYear)) {
+        this.reportingYear = data().deepCopy(fields()[4].schema(), other.reportingYear);
         fieldSetFlags()[4] = true;
       }
-      if (isValidValue(fields()[5], other.deaths)) {
-        this.deaths = data().deepCopy(fields()[5].schema(), other.deaths);
+      if (isValidValue(fields()[5], other.cases)) {
+        this.cases = data().deepCopy(fields()[5].schema(), other.cases);
         fieldSetFlags()[5] = true;
       }
-      if (isValidValue(fields()[6], other.countriesAndTerritories)) {
-        this.countriesAndTerritories = data().deepCopy(fields()[6].schema(), other.countriesAndTerritories);
+      if (isValidValue(fields()[6], other.deaths)) {
+        this.deaths = data().deepCopy(fields()[6].schema(), other.deaths);
         fieldSetFlags()[6] = true;
       }
-      if (isValidValue(fields()[7], other.geoId)) {
-        this.geoId = data().deepCopy(fields()[7].schema(), other.geoId);
+      if (isValidValue(fields()[7], other.countriesAndTerritories)) {
+        this.countriesAndTerritories = data().deepCopy(fields()[7].schema(), other.countriesAndTerritories);
         fieldSetFlags()[7] = true;
       }
-      if (isValidValue(fields()[8], other.countryTerritoryCode)) {
-        this.countryTerritoryCode = data().deepCopy(fields()[8].schema(), other.countryTerritoryCode);
+      if (isValidValue(fields()[8], other.geoId)) {
+        this.geoId = data().deepCopy(fields()[8].schema(), other.geoId);
         fieldSetFlags()[8] = true;
       }
-      if (isValidValue(fields()[9], other.population2019)) {
-        this.population2019 = data().deepCopy(fields()[9].schema(), other.population2019);
+      if (isValidValue(fields()[9], other.countryTerritoryCode)) {
+        this.countryTerritoryCode = data().deepCopy(fields()[9].schema(), other.countryTerritoryCode);
         fieldSetFlags()[9] = true;
       }
-      if (isValidValue(fields()[10], other.continent)) {
-        this.continent = data().deepCopy(fields()[10].schema(), other.continent);
+      if (isValidValue(fields()[10], other.population2019)) {
+        this.population2019 = data().deepCopy(fields()[10].schema(), other.population2019);
         fieldSetFlags()[10] = true;
       }
-      if (isValidValue(fields()[11], other.cumNum14daysPer1000)) {
-        this.cumNum14daysPer1000 = data().deepCopy(fields()[11].schema(), other.cumNum14daysPer1000);
+      if (isValidValue(fields()[11], other.continent)) {
+        this.continent = data().deepCopy(fields()[11].schema(), other.continent);
         fieldSetFlags()[11] = true;
       }
+      if (isValidValue(fields()[12], other.cumNum14daysPer1000)) {
+        this.cumNum14daysPer1000 = data().deepCopy(fields()[12].schema(), other.cumNum14daysPer1000);
+        fieldSetFlags()[12] = true;
+      }
+    }
+
+    /**
+      * Gets the value of the 'header' field.
+      * @return The value.
+      */
+    public net.cloudburo.hexagon.demo.domain.covid.Header getHeader() {
+      return header;
+    }
+
+    /**
+      * Sets the value of the 'header' field.
+      * @param value The value of 'header'.
+      * @return This builder.
+      */
+    public net.cloudburo.hexagon.demo.domain.covid.CovidCase.Builder setHeader(net.cloudburo.hexagon.demo.domain.covid.Header value) {
+      validate(fields()[0], value);
+      this.headerBuilder = null;
+      this.header = value;
+      fieldSetFlags()[0] = true;
+      return this;
+    }
+
+    /**
+      * Checks whether the 'header' field has been set.
+      * @return True if the 'header' field has been set, false otherwise.
+      */
+    public boolean hasHeader() {
+      return fieldSetFlags()[0];
+    }
+
+    /**
+     * Gets the Builder instance for the 'header' field and creates one if it doesn't exist yet.
+     * @return This builder.
+     */
+    public net.cloudburo.hexagon.demo.domain.covid.Header.Builder getHeaderBuilder() {
+      if (headerBuilder == null) {
+        if (hasHeader()) {
+          setHeaderBuilder(net.cloudburo.hexagon.demo.domain.covid.Header.newBuilder(header));
+        } else {
+          setHeaderBuilder(net.cloudburo.hexagon.demo.domain.covid.Header.newBuilder());
+        }
+      }
+      return headerBuilder;
+    }
+
+    /**
+     * Sets the Builder instance for the 'header' field
+     * @param value The builder instance that must be set.
+     * @return This builder.
+     */
+    public net.cloudburo.hexagon.demo.domain.covid.CovidCase.Builder setHeaderBuilder(net.cloudburo.hexagon.demo.domain.covid.Header.Builder value) {
+      clearHeader();
+      headerBuilder = value;
+      return this;
+    }
+
+    /**
+     * Checks whether the 'header' field has an active Builder instance
+     * @return True if the 'header' field has an active Builder instance
+     */
+    public boolean hasHeaderBuilder() {
+      return headerBuilder != null;
+    }
+
+    /**
+      * Clears the value of the 'header' field.
+      * @return This builder.
+      */
+    public net.cloudburo.hexagon.demo.domain.covid.CovidCase.Builder clearHeader() {
+      header = null;
+      headerBuilder = null;
+      fieldSetFlags()[0] = false;
+      return this;
     }
 
     /**
@@ -426,9 +528,9 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return This builder.
       */
     public net.cloudburo.hexagon.demo.domain.covid.CovidCase.Builder setReportingDate(long value) {
-      validate(fields()[0], value);
+      validate(fields()[1], value);
       this.reportingDate = value;
-      fieldSetFlags()[0] = true;
+      fieldSetFlags()[1] = true;
       return this;
     }
 
@@ -437,7 +539,7 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return True if the 'reportingDate' field has been set, false otherwise.
       */
     public boolean hasReportingDate() {
-      return fieldSetFlags()[0];
+      return fieldSetFlags()[1];
     }
 
 
@@ -446,7 +548,7 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return This builder.
       */
     public net.cloudburo.hexagon.demo.domain.covid.CovidCase.Builder clearReportingDate() {
-      fieldSetFlags()[0] = false;
+      fieldSetFlags()[1] = false;
       return this;
     }
 
@@ -464,9 +566,9 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return This builder.
       */
     public net.cloudburo.hexagon.demo.domain.covid.CovidCase.Builder setReportingDay(int value) {
-      validate(fields()[1], value);
+      validate(fields()[2], value);
       this.reportingDay = value;
-      fieldSetFlags()[1] = true;
+      fieldSetFlags()[2] = true;
       return this;
     }
 
@@ -475,7 +577,7 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return True if the 'reportingDay' field has been set, false otherwise.
       */
     public boolean hasReportingDay() {
-      return fieldSetFlags()[1];
+      return fieldSetFlags()[2];
     }
 
 
@@ -484,7 +586,7 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return This builder.
       */
     public net.cloudburo.hexagon.demo.domain.covid.CovidCase.Builder clearReportingDay() {
-      fieldSetFlags()[1] = false;
+      fieldSetFlags()[2] = false;
       return this;
     }
 
@@ -502,9 +604,9 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return This builder.
       */
     public net.cloudburo.hexagon.demo.domain.covid.CovidCase.Builder setReportingMonth(int value) {
-      validate(fields()[2], value);
+      validate(fields()[3], value);
       this.reportingMonth = value;
-      fieldSetFlags()[2] = true;
+      fieldSetFlags()[3] = true;
       return this;
     }
 
@@ -513,7 +615,7 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return True if the 'reportingMonth' field has been set, false otherwise.
       */
     public boolean hasReportingMonth() {
-      return fieldSetFlags()[2];
+      return fieldSetFlags()[3];
     }
 
 
@@ -522,7 +624,7 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return This builder.
       */
     public net.cloudburo.hexagon.demo.domain.covid.CovidCase.Builder clearReportingMonth() {
-      fieldSetFlags()[2] = false;
+      fieldSetFlags()[3] = false;
       return this;
     }
 
@@ -540,9 +642,9 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return This builder.
       */
     public net.cloudburo.hexagon.demo.domain.covid.CovidCase.Builder setReportingYear(int value) {
-      validate(fields()[3], value);
+      validate(fields()[4], value);
       this.reportingYear = value;
-      fieldSetFlags()[3] = true;
+      fieldSetFlags()[4] = true;
       return this;
     }
 
@@ -551,7 +653,7 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return True if the 'reportingYear' field has been set, false otherwise.
       */
     public boolean hasReportingYear() {
-      return fieldSetFlags()[3];
+      return fieldSetFlags()[4];
     }
 
 
@@ -560,7 +662,7 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return This builder.
       */
     public net.cloudburo.hexagon.demo.domain.covid.CovidCase.Builder clearReportingYear() {
-      fieldSetFlags()[3] = false;
+      fieldSetFlags()[4] = false;
       return this;
     }
 
@@ -578,9 +680,9 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return This builder.
       */
     public net.cloudburo.hexagon.demo.domain.covid.CovidCase.Builder setCases(int value) {
-      validate(fields()[4], value);
+      validate(fields()[5], value);
       this.cases = value;
-      fieldSetFlags()[4] = true;
+      fieldSetFlags()[5] = true;
       return this;
     }
 
@@ -589,7 +691,7 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return True if the 'cases' field has been set, false otherwise.
       */
     public boolean hasCases() {
-      return fieldSetFlags()[4];
+      return fieldSetFlags()[5];
     }
 
 
@@ -598,7 +700,7 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return This builder.
       */
     public net.cloudburo.hexagon.demo.domain.covid.CovidCase.Builder clearCases() {
-      fieldSetFlags()[4] = false;
+      fieldSetFlags()[5] = false;
       return this;
     }
 
@@ -616,9 +718,9 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return This builder.
       */
     public net.cloudburo.hexagon.demo.domain.covid.CovidCase.Builder setDeaths(int value) {
-      validate(fields()[5], value);
+      validate(fields()[6], value);
       this.deaths = value;
-      fieldSetFlags()[5] = true;
+      fieldSetFlags()[6] = true;
       return this;
     }
 
@@ -627,7 +729,7 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return True if the 'deaths' field has been set, false otherwise.
       */
     public boolean hasDeaths() {
-      return fieldSetFlags()[5];
+      return fieldSetFlags()[6];
     }
 
 
@@ -636,7 +738,7 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return This builder.
       */
     public net.cloudburo.hexagon.demo.domain.covid.CovidCase.Builder clearDeaths() {
-      fieldSetFlags()[5] = false;
+      fieldSetFlags()[6] = false;
       return this;
     }
 
@@ -654,9 +756,9 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return This builder.
       */
     public net.cloudburo.hexagon.demo.domain.covid.CovidCase.Builder setCountriesAndTerritories(java.lang.String value) {
-      validate(fields()[6], value);
+      validate(fields()[7], value);
       this.countriesAndTerritories = value;
-      fieldSetFlags()[6] = true;
+      fieldSetFlags()[7] = true;
       return this;
     }
 
@@ -665,7 +767,7 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return True if the 'countriesAndTerritories' field has been set, false otherwise.
       */
     public boolean hasCountriesAndTerritories() {
-      return fieldSetFlags()[6];
+      return fieldSetFlags()[7];
     }
 
 
@@ -675,7 +777,7 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       */
     public net.cloudburo.hexagon.demo.domain.covid.CovidCase.Builder clearCountriesAndTerritories() {
       countriesAndTerritories = null;
-      fieldSetFlags()[6] = false;
+      fieldSetFlags()[7] = false;
       return this;
     }
 
@@ -693,9 +795,9 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return This builder.
       */
     public net.cloudburo.hexagon.demo.domain.covid.CovidCase.Builder setGeoId(java.lang.String value) {
-      validate(fields()[7], value);
+      validate(fields()[8], value);
       this.geoId = value;
-      fieldSetFlags()[7] = true;
+      fieldSetFlags()[8] = true;
       return this;
     }
 
@@ -704,7 +806,7 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return True if the 'geoId' field has been set, false otherwise.
       */
     public boolean hasGeoId() {
-      return fieldSetFlags()[7];
+      return fieldSetFlags()[8];
     }
 
 
@@ -714,7 +816,7 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       */
     public net.cloudburo.hexagon.demo.domain.covid.CovidCase.Builder clearGeoId() {
       geoId = null;
-      fieldSetFlags()[7] = false;
+      fieldSetFlags()[8] = false;
       return this;
     }
 
@@ -732,9 +834,9 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return This builder.
       */
     public net.cloudburo.hexagon.demo.domain.covid.CovidCase.Builder setCountryTerritoryCode(java.lang.String value) {
-      validate(fields()[8], value);
+      validate(fields()[9], value);
       this.countryTerritoryCode = value;
-      fieldSetFlags()[8] = true;
+      fieldSetFlags()[9] = true;
       return this;
     }
 
@@ -743,7 +845,7 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return True if the 'countryTerritoryCode' field has been set, false otherwise.
       */
     public boolean hasCountryTerritoryCode() {
-      return fieldSetFlags()[8];
+      return fieldSetFlags()[9];
     }
 
 
@@ -753,7 +855,7 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       */
     public net.cloudburo.hexagon.demo.domain.covid.CovidCase.Builder clearCountryTerritoryCode() {
       countryTerritoryCode = null;
-      fieldSetFlags()[8] = false;
+      fieldSetFlags()[9] = false;
       return this;
     }
 
@@ -771,9 +873,9 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return This builder.
       */
     public net.cloudburo.hexagon.demo.domain.covid.CovidCase.Builder setPopulation2019(int value) {
-      validate(fields()[9], value);
+      validate(fields()[10], value);
       this.population2019 = value;
-      fieldSetFlags()[9] = true;
+      fieldSetFlags()[10] = true;
       return this;
     }
 
@@ -782,7 +884,7 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return True if the 'population2019' field has been set, false otherwise.
       */
     public boolean hasPopulation2019() {
-      return fieldSetFlags()[9];
+      return fieldSetFlags()[10];
     }
 
 
@@ -791,7 +893,7 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return This builder.
       */
     public net.cloudburo.hexagon.demo.domain.covid.CovidCase.Builder clearPopulation2019() {
-      fieldSetFlags()[9] = false;
+      fieldSetFlags()[10] = false;
       return this;
     }
 
@@ -809,9 +911,9 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return This builder.
       */
     public net.cloudburo.hexagon.demo.domain.covid.CovidCase.Builder setContinent(java.lang.String value) {
-      validate(fields()[10], value);
+      validate(fields()[11], value);
       this.continent = value;
-      fieldSetFlags()[10] = true;
+      fieldSetFlags()[11] = true;
       return this;
     }
 
@@ -820,7 +922,7 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return True if the 'continent' field has been set, false otherwise.
       */
     public boolean hasContinent() {
-      return fieldSetFlags()[10];
+      return fieldSetFlags()[11];
     }
 
 
@@ -830,7 +932,7 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       */
     public net.cloudburo.hexagon.demo.domain.covid.CovidCase.Builder clearContinent() {
       continent = null;
-      fieldSetFlags()[10] = false;
+      fieldSetFlags()[11] = false;
       return this;
     }
 
@@ -848,9 +950,9 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return This builder.
       */
     public net.cloudburo.hexagon.demo.domain.covid.CovidCase.Builder setCumNum14daysPer1000(float value) {
-      validate(fields()[11], value);
+      validate(fields()[12], value);
       this.cumNum14daysPer1000 = value;
-      fieldSetFlags()[11] = true;
+      fieldSetFlags()[12] = true;
       return this;
     }
 
@@ -859,7 +961,7 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return True if the 'cumNum14daysPer1000' field has been set, false otherwise.
       */
     public boolean hasCumNum14daysPer1000() {
-      return fieldSetFlags()[11];
+      return fieldSetFlags()[12];
     }
 
 
@@ -868,7 +970,7 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
       * @return This builder.
       */
     public net.cloudburo.hexagon.demo.domain.covid.CovidCase.Builder clearCumNum14daysPer1000() {
-      fieldSetFlags()[11] = false;
+      fieldSetFlags()[12] = false;
       return this;
     }
 
@@ -877,18 +979,23 @@ public class CovidCase extends org.apache.avro.specific.SpecificRecordBase imple
     public CovidCase build() {
       try {
         CovidCase record = new CovidCase();
-        record.reportingDate = fieldSetFlags()[0] ? this.reportingDate : (java.lang.Long) defaultValue(fields()[0]);
-        record.reportingDay = fieldSetFlags()[1] ? this.reportingDay : (java.lang.Integer) defaultValue(fields()[1]);
-        record.reportingMonth = fieldSetFlags()[2] ? this.reportingMonth : (java.lang.Integer) defaultValue(fields()[2]);
-        record.reportingYear = fieldSetFlags()[3] ? this.reportingYear : (java.lang.Integer) defaultValue(fields()[3]);
-        record.cases = fieldSetFlags()[4] ? this.cases : (java.lang.Integer) defaultValue(fields()[4]);
-        record.deaths = fieldSetFlags()[5] ? this.deaths : (java.lang.Integer) defaultValue(fields()[5]);
-        record.countriesAndTerritories = fieldSetFlags()[6] ? this.countriesAndTerritories : (java.lang.String) defaultValue(fields()[6]);
-        record.geoId = fieldSetFlags()[7] ? this.geoId : (java.lang.String) defaultValue(fields()[7]);
-        record.countryTerritoryCode = fieldSetFlags()[8] ? this.countryTerritoryCode : (java.lang.String) defaultValue(fields()[8]);
-        record.population2019 = fieldSetFlags()[9] ? this.population2019 : (java.lang.Integer) defaultValue(fields()[9]);
-        record.continent = fieldSetFlags()[10] ? this.continent : (java.lang.String) defaultValue(fields()[10]);
-        record.cumNum14daysPer1000 = fieldSetFlags()[11] ? this.cumNum14daysPer1000 : (java.lang.Float) defaultValue(fields()[11]);
+        if (headerBuilder != null) {
+          record.header = this.headerBuilder.build();
+        } else {
+          record.header = fieldSetFlags()[0] ? this.header : (net.cloudburo.hexagon.demo.domain.covid.Header) defaultValue(fields()[0]);
+        }
+        record.reportingDate = fieldSetFlags()[1] ? this.reportingDate : (java.lang.Long) defaultValue(fields()[1]);
+        record.reportingDay = fieldSetFlags()[2] ? this.reportingDay : (java.lang.Integer) defaultValue(fields()[2]);
+        record.reportingMonth = fieldSetFlags()[3] ? this.reportingMonth : (java.lang.Integer) defaultValue(fields()[3]);
+        record.reportingYear = fieldSetFlags()[4] ? this.reportingYear : (java.lang.Integer) defaultValue(fields()[4]);
+        record.cases = fieldSetFlags()[5] ? this.cases : (java.lang.Integer) defaultValue(fields()[5]);
+        record.deaths = fieldSetFlags()[6] ? this.deaths : (java.lang.Integer) defaultValue(fields()[6]);
+        record.countriesAndTerritories = fieldSetFlags()[7] ? this.countriesAndTerritories : (java.lang.String) defaultValue(fields()[7]);
+        record.geoId = fieldSetFlags()[8] ? this.geoId : (java.lang.String) defaultValue(fields()[8]);
+        record.countryTerritoryCode = fieldSetFlags()[9] ? this.countryTerritoryCode : (java.lang.String) defaultValue(fields()[9]);
+        record.population2019 = fieldSetFlags()[10] ? this.population2019 : (java.lang.Integer) defaultValue(fields()[10]);
+        record.continent = fieldSetFlags()[11] ? this.continent : (java.lang.String) defaultValue(fields()[11]);
+        record.cumNum14daysPer1000 = fieldSetFlags()[12] ? this.cumNum14daysPer1000 : (java.lang.Float) defaultValue(fields()[12]);
         return record;
       } catch (java.lang.Exception e) {
         throw new org.apache.avro.AvroRuntimeException(e);

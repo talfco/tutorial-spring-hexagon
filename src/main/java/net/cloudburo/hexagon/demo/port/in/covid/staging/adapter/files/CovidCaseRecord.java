@@ -1,7 +1,6 @@
 package net.cloudburo.hexagon.demo.port.in.covid.staging.adapter.files;
 
 import net.cloudburo.hexagon.demo.domain.covid.CovidCase;
-
 import org.apache.camel.dataformat.bindy.annotation.DataField;
 import org.apache.camel.dataformat.bindy.annotation.FixedLengthRecord;
 
@@ -51,6 +50,7 @@ public class CovidCaseRecord {
         float cumCases = 0;
         if (this.cumCases != null)
             cumCases = this.cumCases.floatValue();
+
        CovidCase covidCase = CovidCase.newBuilder()
                .setReportingDate(this.recordDate.getTime())
                .setReportingYear(this.year)

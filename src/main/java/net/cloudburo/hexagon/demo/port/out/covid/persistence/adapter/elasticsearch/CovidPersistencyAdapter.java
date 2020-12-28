@@ -1,6 +1,7 @@
 package net.cloudburo.hexagon.demo.port.out.covid.persistence.adapter.elasticsearch;
 
 import net.cloudburo.hexagon.demo.domain.covid.CovidCase;
+import net.cloudburo.hexagon.demo.domain.covid.Header;
 import net.cloudburo.hexagon.demo.port.out.covid.persistence.CovidPersistencePort;
 import net.cloudburo.hexagon.demo.port.out.covid.persistence.CovidPersistencyPortConfig;
 import org.apache.log4j.Logger;
@@ -39,9 +40,23 @@ public class CovidPersistencyAdapter extends CovidPersistencePort {
     }
 
     @Override
-    public void addCovidRecord(CovidCase record) throws Exception {
+    public void persistDailyCovidRecord(CovidCase record) throws Exception {
         String id = record.getCountryTerritoryCode()+"-"+record.getReportingYear()+"-"+record.getReportingMonth()+"-"+ record.getReportingDay();
-        String jsonDoc = serializeJSON(record);
+
+        // We inject the Avro fingerprint into the JSON Document, in a sense
+        // we seal the document with its specific Schema, this will allow us
+        // during retrieval of the document to detect the right schema which
+        // can interpret the document (provided by the Schema registry)
+        Header header = Header.newBuilder()
+                .setAvroFingerprint(fingerprint)
+                .setLastUpdateTimestamp(java.lang.System.currentTimeMillis())
+                .build();
+
+        CovidCase updRecord = CovidCase.newBuilder(record)
+                .setHeader(header)
+                .build();
+
+        String jsonDoc = serializeJSON(updRecord);
         this.getPersistencyManager().createUpdateDocument(config.getIndex(), type, jsonDoc,id);
     }
 }

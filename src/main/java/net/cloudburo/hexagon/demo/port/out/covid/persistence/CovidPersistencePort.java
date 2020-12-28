@@ -3,6 +3,7 @@ package net.cloudburo.hexagon.demo.port.out.covid.persistence;
 import net.cloudburo.hexagon.demo.domain.covid.CovidCase;
 import net.cloudburo.hexagon.demo.port.SchemaRegistryBasedPort;
 import org.apache.avro.Schema;
+import org.apache.avro.SchemaNormalization;
 import org.apache.avro.generic.GenericDatumReader;
 import org.apache.avro.io.*;
 import org.apache.avro.specific.SpecificDatumReader;
@@ -12,7 +13,10 @@ import java.io.ByteArrayOutputStream;
 
 public abstract class CovidPersistencePort extends SchemaRegistryBasedPort {
 
-    public abstract void addCovidRecord(CovidCase record) throws Exception;
+    protected long fingerprint = SchemaNormalization.parsingFingerprint64(CovidCase.getClassSchema());
+
+
+    public abstract void persistDailyCovidRecord(CovidCase record) throws Exception;
 
     protected String serializeJSON(CovidCase request) throws Exception {
         DatumWriter<CovidCase> writer = new SpecificDatumWriter<CovidCase>(CovidCase.class);
