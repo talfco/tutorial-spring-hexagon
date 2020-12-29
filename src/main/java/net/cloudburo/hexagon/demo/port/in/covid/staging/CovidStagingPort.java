@@ -1,6 +1,7 @@
 package net.cloudburo.hexagon.demo.port.in.covid.staging;
 
 import net.cloudburo.hexagon.demo.domain.covid.CovidCase;
+import net.cloudburo.hexagon.demo.domain.covid.CovidCaseWeekly;
 
 /*
 A port interfaces understands the domain model data structure, which are passed in or retrieved
@@ -11,5 +12,7 @@ The adapter implementation will be wired with UseCaseRepository
 public interface CovidStagingPort {
 
     public void addDailyCovidCases(CovidCase caseRecord) throws Exception;
+
+    public void addWeeklyCovidCases(CovidCaseWeekly caseRecord) throws Exception;
 }
 

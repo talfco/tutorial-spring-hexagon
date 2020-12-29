@@ -10,14 +10,14 @@ public class ESPersistencyConfig {
     private String esurl;
     private String username;
     private String password;
+    private String hostaddress;
+
 
     public String getEsurl() {
         return esurl;
     }
 
-    public void setEsurl(String esurl) {
-        this.esurl = esurl;
-    }
+    public void setEsurl(String esurl) { this.esurl = esurl; }
 
     public String getUsername() {
         return username;
@@ -33,5 +33,13 @@ public class ESPersistencyConfig {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getHostaddress() {
+        return hostaddress;
+    }
+
+    public void setHostaddress(String hostaddress) {
+        this.hostaddress = hostaddress;
     }
 }

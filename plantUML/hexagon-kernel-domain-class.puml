@@ -2,7 +2,7 @@
 
 package Hexagon-Kernel:Covid {
 
-    interface PersistencPort <<port.out.covid>> {
+    interface PersistencePort <<port.out.covid>> {
       +persistDailyCovidRecord()
       +persistWeeklyCovidRecord()
       +persistFinancialPolicyRespRecord()
@@ -20,10 +20,17 @@ package Hexagon-Kernel:Covid {
      +addFinancialSectorPolicyResponse()
     }
 
-    StagingPort <|- CovidUseCaseRepository
-    CovidUseCaseRepository -> PersistencPort
+    StagingPort <- CovidUseCaseRepository : implements
+    CovidUseCaseRepository -> PersistencePort : uses
 
 }
+
+class CovidFileRouter
+class CovidElasticSearchRouter
+
+
+StagingPort <-- CovidFileRouter : adaptsTo
+PersistencePort <-- CovidElasticSearchRouter : implements
 
 package Hexagon-Domain:Covid {
 

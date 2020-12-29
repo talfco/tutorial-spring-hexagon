@@ -9,22 +9,19 @@ injector:
   staging:
     source: 'staging/inbound/source'
     deadletter: 'staging/inbound/dead.letter'
-    split:
-      size: 10000
-      target:
-        fixedlen: 'staging/inbound/split/fixedlen'
-        csv: 'staging/inbound/split/csv'
-        avro: 'staging/inbound/split/avro'
+    target: 'staging/inbound/split'
+    splitsize: 10000
   persistency:
     user:
       portadapter: 'userPersistencyAdapter'
       index: 'clb-hexapp-user'
     covid:
-      portadapter: 'covidPersistencyAdapter'
+      portadapter: 'covidElasticSearchRouter'
       index: 'clb-hexapp-covid'
   persistence:
       elasticsearch:  # Will work with a default single node ES cluster (unprotected)
         esurl: 'http://cloudburo1:9200'
+        hostaddress: 'cloudburo1:9200'
         username: ''
         password: ''
 

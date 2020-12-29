@@ -55,3 +55,4 @@ References:
 * https://www.elastic.co/webinars/moving-from-on-prem-to-managed-services-with-elastic-on-azure?blade=kibanafeed
 
 * https://www.elastic.co/guide/en/elasticsearch/reference/current/removal-of-types.html#:~:text=Since%20the%20first%20release%20of,type%20and%20a%20tweet%20type.
+* https://access.redhat.com/documentation/en-us/red_hat_jboss_fuse/6.3/html/fuse_integration_services_2.0_for_openshift/camel-spring-boot

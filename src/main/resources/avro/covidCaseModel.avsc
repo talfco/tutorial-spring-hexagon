@@ -87,5 +87,64 @@
             "type": "float"
          }
       ]
+   },
+   {
+      "type": "record",
+      "namespace": "net.cloudburo.hexagon.demo.domain.covid",
+      "name": "CovidCaseWeekly",
+      "doc": "Information which used to describe covid geographic distribution per region on a weekly base",
+      "fields": [
+         {
+            "name": "header",
+            "type": [ "null", "Header"],
+            "default": null
+
+         },
+         {
+            "name": "reportingWeek",
+            "type": "int"
+         },
+         {
+            "name": "reportingYear",
+            "type": "int"
+         },
+         {
+            "name": "countriesAndTerritories",
+            "type": "string"
+         },
+         {
+            "name": "countryCode",
+            "type": "string"
+         },
+         {
+            "name": "continent",
+            "type": "string"
+         },
+         {
+            "name": "indicator",
+            "type": "string"
+         },
+         {
+            "name": "weeklyCount",
+            "type": "long"
+         },
+         {
+            "name": "cumulativeCount",
+            "type": "long"
+         },
+         {
+            "name": "source",
+            "type": "string"
+         },
+
+         {
+            "name": "population2019",
+            "type": "int"
+         },
+         {
+            "name": "cumNum14daysPer1000",
+            "type": "float"
+         }
+      ]
    }
 ]
