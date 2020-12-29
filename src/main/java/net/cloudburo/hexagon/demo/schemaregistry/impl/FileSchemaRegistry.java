@@ -1,4 +1,4 @@
-package net.cloudburo.hexagon.demo.schemaregistry.impl.file;
+package net.cloudburo.hexagon.demo.schemaregistry.impl;
 
 import net.cloudburo.hexagon.demo.schemaregistry.SchemaRegistry;
 import org.apache.avro.Schema;

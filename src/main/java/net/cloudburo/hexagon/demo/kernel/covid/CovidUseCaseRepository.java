@@ -43,6 +43,7 @@ public class CovidUseCaseRepository extends BaseUseCaseRepository implements Cov
             // We do a bean lookup, allowing to change the port adapter via configuration
             persistencePort = (CovidPersistencePort)context.getBean(portConfig.getPortAdapter());
             schemaRegistry = (SchemaRegistry)context.getBean(kernelConfig.getSchemaRegistryBean());
+            registerSchema();
         }
         return persistencePort;
     }

@@ -33,7 +33,6 @@ public class UserUseCaseRepository extends BaseUseCaseRepository implements User
         if (persistencePort == null) {
             logger.info("Inject Maintenance Port with Adapter: "+ persistencePortAdapterClassName);
             persistencePort = (UserPersistencePort) Class.forName(persistencePortAdapterClassName).getDeclaredConstructor().newInstance();
-            persistencePort.setRegistry(getSchemaRegistry());
         }
         return persistencePort;
     }

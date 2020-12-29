@@ -6,6 +6,7 @@ injector:
     path: '/camel'
   kernel:
     schemaregistrybean: 'sandboxRegistry'
+    schemaregistryindex: 'clb-hexapp-avroschema'
   staging:
     source: 'staging/inbound/source'
     deadletter: 'staging/inbound/dead.letter'

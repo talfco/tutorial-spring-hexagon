@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 public class KernelConfig {
 
     private String schemaRegistryBean;
+    private String schemaRegistryIndex;
+
 
     public String getSchemaRegistryBean() {
         return schemaRegistryBean;
@@ -16,5 +18,13 @@ public class KernelConfig {
 
     public void setSchemaRegistryBean(String schemaRegistryBean) {
         this.schemaRegistryBean = schemaRegistryBean;
+    }
+
+    public String getSchemaRegistryIndex() {
+        return schemaRegistryIndex;
+    }
+
+    public void setSchemaRegistryIndex(String schemaRegistryIndex) {
+        this.schemaRegistryIndex = schemaRegistryIndex;
     }
 }

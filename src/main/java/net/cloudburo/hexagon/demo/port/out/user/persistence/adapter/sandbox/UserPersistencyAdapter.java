@@ -2,12 +2,10 @@ package net.cloudburo.hexagon.demo.port.out.user.persistence.adapter.sandbox;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-
 import net.cloudburo.hexagon.demo.domain.Header;
 import net.cloudburo.hexagon.demo.domain.Ids;
 import net.cloudburo.hexagon.demo.domain.User;
 import net.cloudburo.hexagon.demo.port.out.user.persistence.UserPersistencePort;
-import org.apache.avro.Schema;
 import org.apache.log4j.Logger;
 
 import java.util.HashMap;
@@ -18,6 +16,7 @@ public class UserPersistencyAdapter extends UserPersistencePort {
 
     // For illustration purpose we persist the User Data Object as Avro JSON
     private static HashMap<String, String> cache = new HashMap<>();
+
 
     @Override
     public User createUser(User data) throws Exception {
@@ -66,8 +65,9 @@ public class UserPersistencyAdapter extends UserPersistencePort {
             user = deSerializeJSON(avroJsonDomainData);
         } else {
             logger.info("Persisted Document has another Avro Schema fingerprint, go for Schema Evolution Process");
-            Schema schema = this.registry.getSchema(docFingerprint);
-            user = schemaEvolutionJSON(avroJsonDomainData,schema, User.getClassSchema());
+            //Schema schema = this.registry.getSchema(docFingerprint);
+            //user = schemaEvolutionJSON(avroJsonDomainData,schema, User.getClassSchema());
+            user = null;
         }
         return user;
     }

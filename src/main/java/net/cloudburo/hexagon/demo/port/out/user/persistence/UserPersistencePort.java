@@ -1,7 +1,6 @@
 package net.cloudburo.hexagon.demo.port.out.user.persistence;
 
 import net.cloudburo.hexagon.demo.domain.User;
-import net.cloudburo.hexagon.demo.port.SchemaRegistryBasedPort;
 import org.apache.avro.Schema;
 import org.apache.avro.SchemaNormalization;
 import org.apache.avro.generic.GenericDatumReader;
@@ -11,7 +10,7 @@ import org.apache.avro.specific.SpecificDatumWriter;
 
 import java.io.ByteArrayOutputStream;
 
-public abstract class UserPersistencePort extends SchemaRegistryBasedPort {
+public abstract class UserPersistencePort  {
 
     protected long fingerprint = SchemaNormalization.parsingFingerprint64(User.getClassSchema());
 
