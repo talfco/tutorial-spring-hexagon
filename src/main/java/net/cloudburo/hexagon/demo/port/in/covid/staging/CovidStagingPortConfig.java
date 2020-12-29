@@ -14,12 +14,6 @@ public class CovidStagingPortConfig {
 
     private String deadletter;
 
-    private String targetFixedLen = target+"/fixedlen";
-
-    private String targetCSV = target+"/csv";
-
-    private String targetAvro = target+"/avro";
-
     public String getSource() {
         return source;
     }
@@ -45,26 +39,15 @@ public class CovidStagingPortConfig {
     }
 
     public String getTargetFixedLen() {
-        return targetFixedLen;
-    }
-
-    public void setTargetFixedLen(String targetFixedLen) {
-        this.targetFixedLen = targetFixedLen;
+        return target+"/fixedlen";
     }
 
     public String getTargetCSV() {
-        return targetCSV;
-    }
-
-    public void setTargetCSV(String targetCSV) {
-        this.targetCSV = targetCSV;
+        return target+"/scv";
     }
 
     public String getTargetAvro() {
-        return targetAvro;
+        return target+"/avro";
     }
 
-    public void setTargetAvro(String targetAvro) {
-        this.targetAvro = targetAvro;
-    }
 }

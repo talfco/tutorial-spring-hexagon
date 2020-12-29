@@ -16,7 +16,8 @@ injector:
       portadapter: 'userPersistencyAdapter'
       index: 'clb-hexapp-user'
     covid:
-      portadapter: 'covidElasticSearchRouter'
+      # other values: covidElasticSearchRouter
+      portadapter: 'covidSandboxRouter'
       index: 'clb-hexapp-covid'
   persistence:
       elasticsearch:  # Will work with a default single node ES cluster (unprotected)

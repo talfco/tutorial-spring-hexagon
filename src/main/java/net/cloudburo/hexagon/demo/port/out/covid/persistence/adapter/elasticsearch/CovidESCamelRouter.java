@@ -6,44 +6,24 @@ import net.cloudburo.hexagon.demo.port.out.covid.persistence.CovidPersistencePor
 import net.cloudburo.hexagon.demo.port.out.covid.persistence.CovidPersistencyPortConfig;
 import net.cloudburo.hexagon.demo.port.out.covid.persistence.CovidSerializer;
 import org.apache.avro.SchemaNormalization;
-import org.apache.log4j.Logger;
+import org.apache.camel.CamelContext;
+import org.apache.camel.ProducerTemplate;
+import org.apache.camel.builder.RouteBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-
 @Component
-public class CovidPersistencyAdapter implements CovidPersistencePort {
+public class CovidESCamelRouter extends RouteBuilder implements CovidPersistencePort {
 
-    private static Logger logger = Logger.getLogger(CovidPersistencyAdapter.class);
-
-    protected long fingerprint = SchemaNormalization.parsingFingerprint64(CovidCase.getClassSchema());
-
+    // TODO: Implement Router
+    @Autowired
+    private CamelContext camelContext;
     @Autowired
     private CovidPersistencyPortConfig config;
     @Autowired
-    private ESPersistencyManager persistencyManager;
-
-    boolean indexCheck = false;
-
-    // TODO: EsType is obsolete
-    private String type = "base";
+    private ESPersistencyConfig esPersistencyConfig;
 
 
-    private void doIndexCheck() throws IOException {
-        if (!indexCheck) {
-            if (!persistencyManager.existsIndex(config.getIndex()))
-                persistencyManager.createIndex(config.getIndex());
-            indexCheck = true;
-        }
-    }
-
-    protected ESPersistencyManager getPersistencyManager() throws Exception {
-        doIndexCheck();
-        return this.persistencyManager;
-    }
-
-    @Override
     public void persistDailyCovidRecord(CovidCase record) throws Exception {
         String id = record.getCountryTerritoryCode()+"-"+record.getReportingYear()+"-"+record.getReportingMonth()+"-"+ record.getReportingDay();
 
@@ -52,7 +32,7 @@ public class CovidPersistencyAdapter implements CovidPersistencePort {
         // during retrieval of the document to detect the right schema which
         // can interpret the document (provided by the Schema registry)
         Header header = Header.newBuilder()
-                .setAvroFingerprint(fingerprint)
+                .setAvroFingerprint(SchemaNormalization.parsingFingerprint64(CovidCase.getClassSchema()))
                 .setLastUpdateTimestamp(java.lang.System.currentTimeMillis())
                 .build();
 
@@ -61,7 +41,19 @@ public class CovidPersistencyAdapter implements CovidPersistencePort {
                 .build();
 
         String jsonDoc = CovidSerializer.serializeJSON(updRecord);
-        this.getPersistencyManager().createUpdateDocument(config.getIndex(), type, jsonDoc,id);
+        ProducerTemplate template = camelContext.createProducerTemplate();
+        template.sendBody("direct:start", jsonDoc);
+    }
+
+
+    @Override
+    public void configure() throws Exception {
+        /**  TODO: Maven Dependcy problems, doesn't work
+        ElasticsearchComponent elasticsearchComponent = new ElasticsearchComponent();
+        elasticsearchComponent.setHostAddresses(esPersistencyConfig.getHostaddress());
+        camelContext.addComponent("elasticsearch-rest", elasticsearchComponent);
+        from("direct:start")
+                .to("elasticsearch-rest://elasticsearch?operation=Index&indexName="+config.getIndex()+"&indexType=base");
+        **/
     }
 }
-
