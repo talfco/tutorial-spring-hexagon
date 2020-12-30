@@ -1,6 +1,7 @@
 package net.cloudburo.hexagon.demo.port.out.covid.persistence.adapter.sandbox;
 
 import net.cloudburo.hexagon.demo.domain.covid.CovidCase;
+import net.cloudburo.hexagon.demo.domain.covid.CovidCaseWeekly;
 import net.cloudburo.hexagon.demo.domain.covid.Header;
 import net.cloudburo.hexagon.demo.port.out.covid.persistence.CovidPersistencePort;
 import net.cloudburo.hexagon.demo.port.out.covid.persistence.CovidSerializer;
@@ -38,6 +39,24 @@ public class CovidSandboxRouter  implements CovidPersistencePort  {
                 .build();
 
         String jsonDoc = CovidSerializer.serializeJSON(updRecord);
+        logger.info("Adding Daily Record: "+id);
+        cache.put(id, jsonDoc);
+    }
+
+    @Override
+    public void persistWeeklyCovidRecord(CovidCaseWeekly record) throws Exception {
+        String id = record.getReportingYear()+"-"+record.getReportingWeek()+"-"+record.getIndicator()+"-"
+                +record.getCountriesAndTerritories().replaceAll("\\s+","");
+        Header header = Header.newBuilder()
+                .setAvroFingerprint(fingerprint)
+                .setLastUpdateTimestamp(java.lang.System.currentTimeMillis())
+                .build();
+        CovidCaseWeekly updRecord = CovidCaseWeekly.newBuilder(record)
+                .setHeader(header)
+                .build();
+
+        String jsonDoc = CovidSerializer.serializeJSON(updRecord);
+        logger.info("Adding Weekly Record: "+id);
         cache.put(id, jsonDoc);
     }
 }

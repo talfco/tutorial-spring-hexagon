@@ -54,16 +54,16 @@ public class ESPersistencyManager {
         }
     }
 
-    public void createUpdateDocument(String index, String type, String docJson, String id) throws IOException {
+    public void createUpdateDocument(String index,  String docJson, String id) throws IOException {
         Index esIndex;
         if (id == null) {
-            esIndex = new Index.Builder(docJson).index(index).type(type).build();
+            esIndex = new Index.Builder(docJson).index(index).type("_doc").build();
         } else {
-            esIndex = new Index.Builder(docJson).index(index).type(type).id(id).build();
+            esIndex = new Index.Builder(docJson).index(index).id(id).type("_doc").build();
         }
         JestResult jestResult =  getEsClient().execute(esIndex);
         if(jestResult.isSucceeded()) {
-            logger.info("Document persisted:" +index+"/"+type+"/"+id);
+            logger.info("Document persisted:" +index+"/"+id);
         }
         else {
             logger.error(jestResult);

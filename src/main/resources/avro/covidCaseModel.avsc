@@ -114,7 +114,8 @@
          },
          {
             "name": "countryCode",
-            "type": "string"
+            "type": [ "null","string"],
+            "default": null
          },
          {
             "name": "continent",
@@ -130,7 +131,8 @@
          },
          {
             "name": "cumulativeCount",
-            "type": "long"
+            "type": ["null","long"],
+            "default": null
          },
          {
             "name": "source",
@@ -139,7 +141,7 @@
 
          {
             "name": "population2019",
-            "type": "int"
+            "type": "long"
          },
          {
             "name": "cumNum14daysPer1000",

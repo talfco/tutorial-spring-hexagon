@@ -24,7 +24,7 @@ public class ElasticSearchSchemaRegistry extends SchemaRegistry {
         doc+= "\"namespace\":"+"\""+schema.getNamespace()+"."+schema.getName()+"\",";
         doc+= "\"avroschema\":"+avroJSONSchema;
         doc+= "}";
-        esManager.createUpdateDocument(kernelConfig.getSchemaRegistryIndex(),"schema",doc,Long.valueOf(fingerprint).toString());
+        esManager.createUpdateDocument(kernelConfig.getSchemaRegistryIndex(),doc,Long.valueOf(fingerprint).toString());
     }
 
     public Schema getSchema(long fingerprint) throws IOException {

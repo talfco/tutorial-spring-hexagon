@@ -1,6 +1,7 @@
 package net.cloudburo.hexagon.demo.port.out.covid.persistence.adapter.elasticsearch;
 
 import net.cloudburo.hexagon.demo.domain.covid.CovidCase;
+import net.cloudburo.hexagon.demo.domain.covid.CovidCaseWeekly;
 import net.cloudburo.hexagon.demo.domain.covid.Header;
 import net.cloudburo.hexagon.demo.port.out.covid.persistence.CovidPersistencePort;
 import net.cloudburo.hexagon.demo.port.out.covid.persistence.CovidPersistencyPortConfig;
@@ -32,8 +33,8 @@ public class CovidElasticSearchRouter implements CovidPersistencePort {
 
     private void doIndexCheck() throws IOException {
         if (!indexCheck) {
-            if (!persistencyManager.existsIndex(config.getIndex()))
-                persistencyManager.createIndex(config.getIndex());
+            if (!persistencyManager.existsIndex(config.getIndexCovid()))
+                persistencyManager.createIndex(config.getIndexCovid());
             indexCheck = true;
         }
     }
@@ -61,7 +62,22 @@ public class CovidElasticSearchRouter implements CovidPersistencePort {
                 .build();
 
         String jsonDoc = CovidSerializer.serializeJSON(updRecord);
-        this.getPersistencyManager().createUpdateDocument(config.getIndex(), type, jsonDoc,id);
+        this.getPersistencyManager().createUpdateDocument(config.getIndexCovid(), jsonDoc,id);
+    }
+
+    @Override
+    public void persistWeeklyCovidRecord(CovidCaseWeekly record) throws Exception {
+        String id = record.getReportingYear()+"-"+record.getReportingWeek()+"-"+record.getIndicator()+"-"
+                +record.getCountriesAndTerritories().replaceAll("\\s+","");
+        Header header = Header.newBuilder()
+                .setAvroFingerprint(fingerprint)
+                .setLastUpdateTimestamp(java.lang.System.currentTimeMillis())
+                .build();
+        CovidCaseWeekly updRecord = CovidCaseWeekly.newBuilder(record)
+                .setHeader(header)
+                .build();
+        String jsonDoc = CovidSerializer.serializeJSON(updRecord);
+        this.getPersistencyManager().createUpdateDocument(config.getIndexCovidWeekly(), jsonDoc,id);
     }
 }
 

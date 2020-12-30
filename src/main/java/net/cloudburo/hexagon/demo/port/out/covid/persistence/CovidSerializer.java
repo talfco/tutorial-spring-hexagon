@@ -1,6 +1,7 @@
 package net.cloudburo.hexagon.demo.port.out.covid.persistence;
 
 import net.cloudburo.hexagon.demo.domain.covid.CovidCase;
+import net.cloudburo.hexagon.demo.domain.covid.CovidCaseWeekly;
 import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericDatumReader;
 import org.apache.avro.io.*;
@@ -23,14 +24,26 @@ public class CovidSerializer {
         return new String(data);
     }
 
-    public static CovidCase deSerializeJSON(String data) throws Exception {
+    public static String serializeJSON(CovidCaseWeekly request) throws Exception {
+        DatumWriter<CovidCaseWeekly> writer = new SpecificDatumWriter<CovidCaseWeekly>(CovidCaseWeekly.class);
+        byte[] data = new byte[0];
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        Encoder jsonEncoder = null;
+        jsonEncoder = EncoderFactory.get().jsonEncoder(CovidCaseWeekly.getClassSchema(), stream);
+        writer.write(request, jsonEncoder);
+        jsonEncoder.flush();
+        data = stream.toByteArray();
+        return new String(data);
+    }
+
+    public static CovidCase deSerializeCovidJSON(String data) throws Exception {
         DatumReader<CovidCase> reader = new SpecificDatumReader<>(CovidCase.class);
         Decoder decoder = DecoderFactory.get().jsonDecoder(CovidCase.getClassSchema(),data);
         return reader.read(null, decoder);
     }
 
     // TODO this is untested
-    public CovidCase schemaEvolutionJSON(String data, Schema from, Schema to) throws Exception {
+    public CovidCase schemaEvolutionCovidJSON(String data, Schema from, Schema to) throws Exception {
         DatumReader<CovidCase> reader = new GenericDatumReader<>(from,to);
         Decoder decoder = DecoderFactory.get().jsonDecoder(to,data);
         return reader.read(null, decoder);

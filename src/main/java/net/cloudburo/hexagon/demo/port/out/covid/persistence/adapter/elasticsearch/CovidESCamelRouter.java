@@ -2,7 +2,6 @@ package net.cloudburo.hexagon.demo.port.out.covid.persistence.adapter.elasticsea
 
 import net.cloudburo.hexagon.demo.domain.covid.CovidCase;
 import net.cloudburo.hexagon.demo.domain.covid.Header;
-import net.cloudburo.hexagon.demo.port.out.covid.persistence.CovidPersistencePort;
 import net.cloudburo.hexagon.demo.port.out.covid.persistence.CovidPersistencyPortConfig;
 import net.cloudburo.hexagon.demo.port.out.covid.persistence.CovidSerializer;
 import org.apache.avro.SchemaNormalization;
@@ -13,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CovidESCamelRouter extends RouteBuilder implements CovidPersistencePort {
+public class CovidESCamelRouter extends RouteBuilder {
 
     // TODO: Implement Router
     @Autowired

@@ -14,8 +14,8 @@ import org.apache.avro.message.SchemaStore;
 /** Information which used to describe covid geographic distribution per region on a weekly base */
 @org.apache.avro.specific.AvroGenerated
 public class CovidCaseWeekly extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = -2888709266036024310L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"CovidCaseWeekly\",\"namespace\":\"net.cloudburo.hexagon.demo.domain.covid\",\"doc\":\"Information which used to describe covid geographic distribution per region on a weekly base\",\"fields\":[{\"name\":\"header\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Header\",\"doc\":\"The header record stores important (meta-) information about the record, certain fields are optional in case an initial creation is done\",\"fields\":[{\"name\":\"avroFingerprint\",\"type\":\"long\",\"doc\":\"The fingerprint of the schema used by record producer, http://avro.apache.org/docs/1.8.2/spec.html#schema_fingerprints.\"},{\"name\":\"lastUpdateLoginId\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"doc\":\"Login id  who produced the record\",\"default\":null},{\"name\":\"lastUpdateTimestamp\",\"type\":[\"null\",\"long\"],\"doc\":\"The Update timestamp when the record was persisted. Null for the update of a record, will be newly calculated by persistency adpapter\",\"default\":null,\"logical-type\":\"time-micros\"}]}],\"default\":null},{\"name\":\"reportingWeek\",\"type\":\"int\"},{\"name\":\"reportingYear\",\"type\":\"int\"},{\"name\":\"countriesAndTerritories\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"countryCode\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"continent\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"indicator\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"weeklyCount\",\"type\":\"long\"},{\"name\":\"cumulativeCount\",\"type\":\"long\"},{\"name\":\"source\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"population2019\",\"type\":\"int\"},{\"name\":\"cumNum14daysPer1000\",\"type\":\"float\"}]}");
+  private static final long serialVersionUID = -2898715890407044614L;
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"CovidCaseWeekly\",\"namespace\":\"net.cloudburo.hexagon.demo.domain.covid\",\"doc\":\"Information which used to describe covid geographic distribution per region on a weekly base\",\"fields\":[{\"name\":\"header\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Header\",\"doc\":\"The header record stores important (meta-) information about the record, certain fields are optional in case an initial creation is done\",\"fields\":[{\"name\":\"avroFingerprint\",\"type\":\"long\",\"doc\":\"The fingerprint of the schema used by record producer, http://avro.apache.org/docs/1.8.2/spec.html#schema_fingerprints.\"},{\"name\":\"lastUpdateLoginId\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"doc\":\"Login id  who produced the record\",\"default\":null},{\"name\":\"lastUpdateTimestamp\",\"type\":[\"null\",\"long\"],\"doc\":\"The Update timestamp when the record was persisted. Null for the update of a record, will be newly calculated by persistency adpapter\",\"default\":null,\"logical-type\":\"time-micros\"}]}],\"default\":null},{\"name\":\"reportingWeek\",\"type\":\"int\"},{\"name\":\"reportingYear\",\"type\":\"int\"},{\"name\":\"countriesAndTerritories\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"countryCode\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"default\":null},{\"name\":\"continent\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"indicator\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"weeklyCount\",\"type\":\"long\"},{\"name\":\"cumulativeCount\",\"type\":[\"null\",\"long\"],\"default\":null},{\"name\":\"source\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"population2019\",\"type\":\"long\"},{\"name\":\"cumNum14daysPer1000\",\"type\":\"float\"}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static SpecificData MODEL$ = new SpecificData();
@@ -60,9 +60,9 @@ public class CovidCaseWeekly extends org.apache.avro.specific.SpecificRecordBase
    private java.lang.String continent;
    private java.lang.String indicator;
    private long weeklyCount;
-   private long cumulativeCount;
+   private java.lang.Long cumulativeCount;
    private java.lang.String source;
-   private int population2019;
+   private long population2019;
    private float cumNum14daysPer1000;
 
   /**
@@ -87,7 +87,7 @@ public class CovidCaseWeekly extends org.apache.avro.specific.SpecificRecordBase
    * @param population2019 The new value for population2019
    * @param cumNum14daysPer1000 The new value for cumNum14daysPer1000
    */
-  public CovidCaseWeekly(net.cloudburo.hexagon.demo.domain.covid.Header header, java.lang.Integer reportingWeek, java.lang.Integer reportingYear, java.lang.String countriesAndTerritories, java.lang.String countryCode, java.lang.String continent, java.lang.String indicator, java.lang.Long weeklyCount, java.lang.Long cumulativeCount, java.lang.String source, java.lang.Integer population2019, java.lang.Float cumNum14daysPer1000) {
+  public CovidCaseWeekly(net.cloudburo.hexagon.demo.domain.covid.Header header, java.lang.Integer reportingWeek, java.lang.Integer reportingYear, java.lang.String countriesAndTerritories, java.lang.String countryCode, java.lang.String continent, java.lang.String indicator, java.lang.Long weeklyCount, java.lang.Long cumulativeCount, java.lang.String source, java.lang.Long population2019, java.lang.Float cumNum14daysPer1000) {
     this.header = header;
     this.reportingWeek = reportingWeek;
     this.reportingYear = reportingYear;
@@ -136,7 +136,7 @@ public class CovidCaseWeekly extends org.apache.avro.specific.SpecificRecordBase
     case 7: weeklyCount = (java.lang.Long)value$; break;
     case 8: cumulativeCount = (java.lang.Long)value$; break;
     case 9: source = (java.lang.String)value$; break;
-    case 10: population2019 = (java.lang.Integer)value$; break;
+    case 10: population2019 = (java.lang.Long)value$; break;
     case 11: cumNum14daysPer1000 = (java.lang.Float)value$; break;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
@@ -236,7 +236,7 @@ public class CovidCaseWeekly extends org.apache.avro.specific.SpecificRecordBase
    * Gets the value of the 'population2019' field.
    * @return The value of the 'population2019' field.
    */
-  public java.lang.Integer getPopulation2019() {
+  public java.lang.Long getPopulation2019() {
     return population2019;
   }
 
@@ -291,9 +291,9 @@ public class CovidCaseWeekly extends org.apache.avro.specific.SpecificRecordBase
     private java.lang.String continent;
     private java.lang.String indicator;
     private long weeklyCount;
-    private long cumulativeCount;
+    private java.lang.Long cumulativeCount;
     private java.lang.String source;
-    private int population2019;
+    private long population2019;
     private float cumNum14daysPer1000;
 
     /** Creates a new Builder */
@@ -774,7 +774,7 @@ public class CovidCaseWeekly extends org.apache.avro.specific.SpecificRecordBase
       * @param value The value of 'cumulativeCount'.
       * @return This builder.
       */
-    public net.cloudburo.hexagon.demo.domain.covid.CovidCaseWeekly.Builder setCumulativeCount(long value) {
+    public net.cloudburo.hexagon.demo.domain.covid.CovidCaseWeekly.Builder setCumulativeCount(java.lang.Long value) {
       validate(fields()[8], value);
       this.cumulativeCount = value;
       fieldSetFlags()[8] = true;
@@ -795,6 +795,7 @@ public class CovidCaseWeekly extends org.apache.avro.specific.SpecificRecordBase
       * @return This builder.
       */
     public net.cloudburo.hexagon.demo.domain.covid.CovidCaseWeekly.Builder clearCumulativeCount() {
+      cumulativeCount = null;
       fieldSetFlags()[8] = false;
       return this;
     }
@@ -842,7 +843,7 @@ public class CovidCaseWeekly extends org.apache.avro.specific.SpecificRecordBase
       * Gets the value of the 'population2019' field.
       * @return The value.
       */
-    public java.lang.Integer getPopulation2019() {
+    public java.lang.Long getPopulation2019() {
       return population2019;
     }
 
@@ -851,7 +852,7 @@ public class CovidCaseWeekly extends org.apache.avro.specific.SpecificRecordBase
       * @param value The value of 'population2019'.
       * @return This builder.
       */
-    public net.cloudburo.hexagon.demo.domain.covid.CovidCaseWeekly.Builder setPopulation2019(int value) {
+    public net.cloudburo.hexagon.demo.domain.covid.CovidCaseWeekly.Builder setPopulation2019(long value) {
       validate(fields()[10], value);
       this.population2019 = value;
       fieldSetFlags()[10] = true;
@@ -933,7 +934,7 @@ public class CovidCaseWeekly extends org.apache.avro.specific.SpecificRecordBase
         record.weeklyCount = fieldSetFlags()[7] ? this.weeklyCount : (java.lang.Long) defaultValue(fields()[7]);
         record.cumulativeCount = fieldSetFlags()[8] ? this.cumulativeCount : (java.lang.Long) defaultValue(fields()[8]);
         record.source = fieldSetFlags()[9] ? this.source : (java.lang.String) defaultValue(fields()[9]);
-        record.population2019 = fieldSetFlags()[10] ? this.population2019 : (java.lang.Integer) defaultValue(fields()[10]);
+        record.population2019 = fieldSetFlags()[10] ? this.population2019 : (java.lang.Long) defaultValue(fields()[10]);
         record.cumNum14daysPer1000 = fieldSetFlags()[11] ? this.cumNum14daysPer1000 : (java.lang.Float) defaultValue(fields()[11]);
         return record;
       } catch (java.lang.Exception e) {

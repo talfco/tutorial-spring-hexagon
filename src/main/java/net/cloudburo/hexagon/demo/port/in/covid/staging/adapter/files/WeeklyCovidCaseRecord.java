@@ -7,6 +7,7 @@ import org.apache.camel.dataformat.bindy.annotation.DataField;
 import java.math.BigDecimal;
 import java.util.StringTokenizer;
 
+// https://stackoverflow.com/questions/39503312/apache-camel-2-17-3-exception-unmarshalling-csv-stream-with-bindy
 @CsvRecord( separator = "," )
 public class WeeklyCovidCaseRecord {
 
@@ -20,7 +21,7 @@ public class WeeklyCovidCaseRecord {
     private String continent;
 
     @DataField(pos = 4)
-    private int population;
+    private long population;
 
     @DataField(pos = 5)
     private String  indicator;
@@ -40,6 +41,86 @@ public class WeeklyCovidCaseRecord {
     @DataField(pos = 10)
     private String source;
 
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    public String getContinent() {
+        return continent;
+    }
+
+    public void setContinent(String continent) {
+        this.continent = continent;
+    }
+
+    public long getPopulation() {
+        return population;
+    }
+
+    public void setPopulation(long population) {
+        this.population = population;
+    }
+
+    public String getIndicator() {
+        return indicator;
+    }
+
+    public void setIndicator(String indicator) {
+        this.indicator = indicator;
+    }
+
+    public long getWeeklyCount() {
+        return weeklyCount;
+    }
+
+    public void setWeeklyCount(long weeklyCount) {
+        this.weeklyCount = weeklyCount;
+    }
+
+    public String getYear_week() {
+        return year_week;
+    }
+
+    public void setYear_week(String year_week) {
+        this.year_week = year_week;
+    }
+
+    public BigDecimal getRate14Day() {
+        return rate14Day;
+    }
+
+    public void setRate14Day(BigDecimal rate14Day) {
+        this.rate14Day = rate14Day;
+    }
+
+    public long getCumulativeCount() {
+        return cumulativeCount;
+    }
+
+    public void setCumulativeCount(long cumulativeCount) {
+        this.cumulativeCount = cumulativeCount;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
     public CovidCaseWeekly transformToDomainClass()
     {
         float rate14Day = 0;
@@ -57,6 +138,7 @@ public class WeeklyCovidCaseRecord {
             .setIndicator(this.indicator)
             .setWeeklyCount(this.weeklyCount)
             .setCumulativeCount(this.cumulativeCount)
+            .setSource(this.source)
             .build();
         return caseweekly;
     }

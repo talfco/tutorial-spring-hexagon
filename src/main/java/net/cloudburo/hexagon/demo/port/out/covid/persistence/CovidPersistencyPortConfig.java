@@ -7,23 +7,41 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties("injector.persistency.covid")
 public class CovidPersistencyPortConfig {
 
-    private String portAdapter;
-    private String index;
+    private String portAdapterBean;
+    private String indexCovid;
+    private String indexCovidWeekly;
+    private String indexCovidFinPolResp;
 
-    public String getPortAdapter() {
-        return portAdapter;
+    public String getIndexCovidWeekly() {
+        return indexCovidWeekly;
     }
 
-    public void setPortAdapter(String portAdapter) {
-        this.portAdapter = portAdapter;
+    public void setIndexCovidWeekly(String indexCovidWeekly) {
+        this.indexCovidWeekly = indexCovidWeekly;
     }
 
-    public String getIndex() {
-        return index;
+    public String getIndexCovidFinPolResp() {
+        return indexCovidFinPolResp;
     }
 
-    public void setIndex(String index) {
-        this.index = index;
+    public void setIndexCovidFinPolResp(String indexCovidFinPolResp) {
+        this.indexCovidFinPolResp = indexCovidFinPolResp;
+    }
+
+    public String getPortAdapterBean() {
+        return portAdapterBean;
+    }
+
+    public void setPortAdapterBean(String portAdapterBean) {
+        this.portAdapterBean = portAdapterBean;
+    }
+
+    public String getIndexCovid() {
+        return indexCovid;
+    }
+
+    public void setIndexCovid(String indexCovid) {
+        this.indexCovid = indexCovid;
     }
 }
 

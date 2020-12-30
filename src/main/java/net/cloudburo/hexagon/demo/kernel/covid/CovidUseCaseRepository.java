@@ -39,9 +39,9 @@ public class CovidUseCaseRepository extends BaseUseCaseRepository implements Cov
 
     private CovidPersistencePort getPersistencePort() throws Exception {
         if (persistencePort == null) {
-            logger.info("Establish persistency port adapter "+portConfig.getPortAdapter());
+            logger.info("Establish persistency port adapter "+portConfig.getPortAdapterBean());
             // We do a bean lookup, allowing to change the port adapter via configuration
-            persistencePort = (CovidPersistencePort)context.getBean(portConfig.getPortAdapter());
+            persistencePort = (CovidPersistencePort)context.getBean(portConfig.getPortAdapterBean());
             schemaRegistry = (SchemaRegistry)context.getBean(kernelConfig.getSchemaRegistryBean());
             registerSchema();
         }
@@ -61,6 +61,6 @@ public class CovidUseCaseRepository extends BaseUseCaseRepository implements Cov
 
     @Override
     public void addWeeklyCovidCases(CovidCaseWeekly caseRecord) throws  Exception {
-        // TODO: Persist Weekly
+        getPersistencePort().persistWeeklyCovidRecord(caseRecord);
     }
 }

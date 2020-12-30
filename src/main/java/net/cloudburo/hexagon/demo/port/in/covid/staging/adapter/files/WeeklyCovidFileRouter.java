@@ -30,16 +30,17 @@ public class WeeklyCovidFileRouter extends RouteBuilder {
         from("file://" + covidStagingPortConfig.getSource()+ sourcePostfix + "?delete=true").routeId("covidweekly-file-route")
             // We process one record entry after the other
             .log("Start transform of CovidCaseWeekly to Domain Model ")
-            .split().tokenize("\n").streaming()
-            .unmarshal()
-            .bindy(BindyType.Csv, WeeklyCovidCaseRecord.class)
-            .process(new Processor() {
-                public void process(Exchange exchange) throws Exception {
-                    Message in = exchange.getIn();
-                    WeeklyCovidCaseRecord rec =(WeeklyCovidCaseRecord) in.getBody();
-                    covidStagingPort.addWeeklyCovidCases(rec.transformToDomainClass());
-                }
-            })
+            //.split(body().tokenize("\n",1,true)).streaming()
+            .split().tokenize("\n",1,true).streaming()
+                .unmarshal()
+                .bindy(BindyType.Csv, WeeklyCovidCaseRecord.class)
+                .process(new Processor() {
+                    public void process(Exchange exchange) throws Exception {
+                        Message in = exchange.getIn();
+                        WeeklyCovidCaseRecord rec =(WeeklyCovidCaseRecord) in.getBody();
+                        covidStagingPort.addWeeklyCovidCases(rec.transformToDomainClass());
+                    }
+                })
             .end()
             .log("Transform to Domain Model Completed ");
     }

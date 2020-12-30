@@ -17,9 +17,11 @@ injector:
       portadapter: 'userPersistencyAdapter'
       index: 'clb-hexapp-user'
     covid:
-      # other values: covidElasticSearchRouter
-      portadapter: 'covidSandboxRouter'
-      index: 'clb-hexapp-covid'
+      # valid values: covidElasticSearchRouter,covidSandboxRouter
+      portadapterbean: 'covidSandboxRouter'
+      indexcovid: 'clb-hexapp-covid'
+      indexcovidweekly: 'clb-hexapp-covidweekly'
+      indexcovidfinpolresp:   'clb-hexapp-covidfinpolresp'
   persistence:
       elasticsearch:  # Will work with a default single node ES cluster (unprotected)
         esurl: 'http://cloudburo1:9200'
