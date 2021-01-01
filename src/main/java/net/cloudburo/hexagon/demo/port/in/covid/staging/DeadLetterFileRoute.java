@@ -1,7 +1,9 @@
 package net.cloudburo.hexagon.demo.port.in.covid.staging;
 
 import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,10 +18,19 @@ public class DeadLetterFileRoute  extends RouteBuilder {
         from("direct://dlStagingFileRoute").routeId("deadletter-staging-file-route")
             .log("Dead Letter Queue Event ${id}: ${header.failureMessage} - ${body}")
             .setHeader(Exchange.FILE_NAME, simple("${header.useCase}-${file:name.noext}-${id}.${file:ext}"))
-            .log("Unprocessed file ${file:name} will be moved into folder "+covidStagingPortConfig.getDeadletter() +"/"+simple("${header.useCase}"))
+            .log("Unprocessed file record ${file:name} will be moved into folder "+covidStagingPortConfig.getDeadletter())
             .to("file://" + covidStagingPortConfig.getDeadletter())
+            .process(new Processor() {
+                @Override
+                public void process(Exchange exchange) throws Exception {
+                    exchange.getIn().setHeader("md5Key", DigestUtils.md5Hex((String)exchange.getIn().getBody()));
+                }
+            })
             .setHeader(Exchange.FILE_NAME, simple("${file:name.noext}.txt"))
             .setBody(simple("Timestamp: ${date:now:yyyyMMddHHmmssSSS}\nId: ${id}\nFailure: ${header.failureMessage}"))
+            .to("file://" + covidStagingPortConfig.getDeadletter())
+            .setHeader(Exchange.FILE_NAME, simple("${file:name.noext}.md5"))
+            .setBody(simple("${header.md5key}"))
             .to("file://" + covidStagingPortConfig.getDeadletter());
     }
 }
