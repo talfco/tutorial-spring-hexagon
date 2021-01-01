@@ -1,10 +1,17 @@
 server:
   port: 8080
 
+
+
 injector:
   api:
     path: '/camel'
   kernel:
+    # A list of domain objects managed by the
+    domaincovidcaseid: "covidcase"
+    domaincovidweeklycaseid: "covidcaseweekly"
+    domaincovidfinancialpolicyid: "covidfinancialpolicy"
+
     schemaregistrybean: 'sandboxRegistry'
     schemaregistryindex: 'clb-hexapp-avroschema'
   staging:
@@ -18,7 +25,7 @@ injector:
       index: 'clb-hexapp-user'
     covid:
       # valid values: covidElasticSearchRouter,covidSandboxRouter
-      portadapterbean: 'covidSandboxRouter'
+      portadapterbean: 'covidElasticSearchRouter'
       indexcovid: 'clb-hexapp-covid'
       indexcovidweekly: 'clb-hexapp-covidweekly'
       indexcovidfinpolresp:   'clb-hexapp-covidfinpolresp'

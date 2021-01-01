@@ -1,7 +1,7 @@
 [
    {
       "type": "record",
-      "namespace": "net.cloudburo.hexagon.demo.domain.covid",
+      "namespace": "clb.infra",
       "name": "Header",
       "doc": "The header record stores important (meta-) information about the record, certain fields are optional in case an initial creation is done",
       "fields": [
@@ -27,13 +27,13 @@
    },
    {
       "type": "record",
-      "namespace": "net.cloudburo.hexagon.demo.domain.covid",
+      "namespace": "clb.covid",
       "name": "CovidCase",
       "doc": "Information which used to describe covid geographic distribution per region",
       "fields": [
          {
             "name": "header",
-            "type": [ "null", "Header"],
+            "type": [ "null", "clb.infra.Header"],
             "default": null
 
          },
@@ -90,13 +90,13 @@
    },
    {
       "type": "record",
-      "namespace": "net.cloudburo.hexagon.demo.domain.covid",
+      "namespace": "clb.covid",
       "name": "CovidCaseWeekly",
       "doc": "Information which used to describe covid geographic distribution per region on a weekly base",
       "fields": [
          {
             "name": "header",
-            "type": [ "null", "Header"],
+            "type": [ "null", "clb.infra.Header"],
             "default": null
 
          },

@@ -1,7 +1,7 @@
 package net.cloudburo.hexagon.demo.port.out.covid.persistence.adapter.elasticsearch;
 
-import net.cloudburo.hexagon.demo.domain.covid.CovidCase;
-import net.cloudburo.hexagon.demo.domain.covid.Header;
+import clb.covid.CovidCase;
+import clb.infra.Header;
 import net.cloudburo.hexagon.demo.port.out.covid.persistence.CovidPersistencyPortConfig;
 import net.cloudburo.hexagon.demo.port.out.covid.persistence.CovidSerializer;
 import org.apache.avro.SchemaNormalization;

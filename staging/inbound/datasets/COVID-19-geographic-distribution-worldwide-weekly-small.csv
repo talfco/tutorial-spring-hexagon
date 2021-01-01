@@ -1,0 +1,4 @@
+﻿country,country_code,continent,population,indicator,weekly_count,year_week,rate_14_day,cumulative_count,source
+Afghanistan,AFG,Asia,38928341,cases,0,2020-01,,0,"Epidemic intelligence, national weekly data"
+Afghanistan,AFG,Asia,38928341,cases,0,2020-02,0,0,"Epidemic intelligence, national weekly data"
+Afghanistan/Burma,AFG,Asia,38928341,cases,0,2020-03,0,0,"Epidemic intelligence, national weekly data"

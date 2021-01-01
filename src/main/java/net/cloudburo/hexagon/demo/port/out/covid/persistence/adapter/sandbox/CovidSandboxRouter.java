@@ -1,8 +1,8 @@
 package net.cloudburo.hexagon.demo.port.out.covid.persistence.adapter.sandbox;
 
-import net.cloudburo.hexagon.demo.domain.covid.CovidCase;
-import net.cloudburo.hexagon.demo.domain.covid.CovidCaseWeekly;
-import net.cloudburo.hexagon.demo.domain.covid.Header;
+import clb.covid.CovidCase;
+import clb.covid.CovidCaseWeekly;
+import clb.infra.Header;
 import net.cloudburo.hexagon.demo.port.out.covid.persistence.CovidPersistencePort;
 import net.cloudburo.hexagon.demo.port.out.covid.persistence.CovidSerializer;
 import org.apache.avro.SchemaNormalization;

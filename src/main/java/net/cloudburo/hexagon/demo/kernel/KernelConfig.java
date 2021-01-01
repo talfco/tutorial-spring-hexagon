@@ -10,7 +10,33 @@ public class KernelConfig {
 
     private String schemaRegistryBean;
     private String schemaRegistryIndex;
+    private String domainCovidCaseId;
+    private String domainCovidWeeklyCaseId;
+    private String domainCovidFinancialPolicyId;
 
+    public String getDomainCovidCaseId() {
+        return domainCovidCaseId;
+    }
+
+    public void setDomainCovidCaseId(String domainCovidCaseId) {
+        this.domainCovidCaseId = domainCovidCaseId;
+    }
+
+    public String getDomainCovidWeeklyCaseId() {
+        return domainCovidWeeklyCaseId;
+    }
+
+    public void setDomainCovidWeeklyCaseId(String domainCovidWeeklyCaseId) {
+        this.domainCovidWeeklyCaseId = domainCovidWeeklyCaseId;
+    }
+
+    public String getDomainCovidFinancialPolicyId() {
+        return domainCovidFinancialPolicyId;
+    }
+
+    public void setDomainCovidFinancialPolicyId(String domainCovidFinancialPolicyId) {
+        this.domainCovidFinancialPolicyId = domainCovidFinancialPolicyId;
+    }
 
     public String getSchemaRegistryBean() {
         return schemaRegistryBean;

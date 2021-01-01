@@ -1,8 +1,8 @@
 package net.cloudburo.hexagon.demo.kernel.covid;
 
 // Domain Classes
-import net.cloudburo.hexagon.demo.domain.covid.CovidCase;
-import net.cloudburo.hexagon.demo.domain.covid.CovidCaseWeekly;
+import clb.covid.CovidCase;
+import clb.covid.CovidCaseWeekly;
 import net.cloudburo.hexagon.demo.kernel.BaseUseCaseRepository;
 import net.cloudburo.hexagon.demo.kernel.KernelConfig;
 import net.cloudburo.hexagon.demo.port.in.covid.staging.CovidStagingPort;

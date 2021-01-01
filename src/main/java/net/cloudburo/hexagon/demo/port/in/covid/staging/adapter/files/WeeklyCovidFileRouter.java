@@ -1,8 +1,10 @@
 package net.cloudburo.hexagon.demo.port.in.covid.staging.adapter.files;
 
+import net.cloudburo.hexagon.demo.kernel.KernelConfig;
 import net.cloudburo.hexagon.demo.kernel.covid.CovidUseCaseRepository;
 import net.cloudburo.hexagon.demo.port.in.covid.staging.CovidStagingPort;
 import net.cloudburo.hexagon.demo.port.in.covid.staging.CovidStagingPortConfig;
+import net.cloudburo.hexagon.demo.port.in.covid.staging.FailureProcessor;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
@@ -14,12 +16,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class WeeklyCovidFileRouter extends RouteBuilder {
 
-    private static final String sourcePostfix = "/covidcaseweekly";
 
     final CovidStagingPort covidStagingPort;
 
     @Autowired
     CovidStagingPortConfig covidStagingPortConfig;
+    @Autowired
+    KernelConfig kernelConfig;
 
     public WeeklyCovidFileRouter(final CovidUseCaseRepository covidUseCaseRepository) {
         this.covidStagingPort = covidUseCaseRepository;
@@ -27,10 +30,13 @@ public class WeeklyCovidFileRouter extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("file://" + covidStagingPortConfig.getSource()+ sourcePostfix + "?delete=true").routeId("covidweekly-file-route")
+        //errorHandler(deadLetterChannel("log:dead?level=ERROR").useOriginalMessage().onPrepareFailure(new FailureProcessor()));
+        errorHandler(deadLetterChannel("direct:dlStagingFileRoute").useOriginalMessage().onPrepareFailure(new FailureProcessor()));
+        String useCaseId = kernelConfig.getDomainCovidWeeklyCaseId();
+        from("file://" + covidStagingPortConfig.getSource()+ "/" + useCaseId + "?delete=true").routeId(useCaseId+"-file-route")
+            .log("Start transform to Domain Model: ${date:now:yyyy-MM-dd-HH:mm:ss}")
+            .setHeader("usecase",constant(useCaseId))
             // We process one record entry after the other
-            .log("Start transform of CovidCaseWeekly to Domain Model ")
-            //.split(body().tokenize("\n",1,true)).streaming()
             .split().tokenize("\n",1,true).streaming()
                 .unmarshal()
                 .bindy(BindyType.Csv, WeeklyCovidCaseRecord.class)
@@ -42,7 +48,10 @@ public class WeeklyCovidFileRouter extends RouteBuilder {
                     }
                 })
             .end()
-            .log("Transform to Domain Model Completed ");
+            .log("Transform to Domain Model Completed: ${date:now:yyyy-MM-dd-HH:mm:ss}")
+            .log("Processed file ${file:name} will be moved into folder "+covidStagingPortConfig.getTarget()+"/"+useCaseId)
+            .setHeader(Exchange.FILE_NAME, simple("${file:name.noext}-${date:now:yyyyMMddHHmmssSSS}.${file:ext}"))
+            .to("file://" + covidStagingPortConfig.getTarget()+"/"+useCaseId);
     }
 
 }

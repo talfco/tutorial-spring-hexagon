@@ -38,16 +38,4 @@ public class CovidStagingPortConfig {
         this.deadletter = deadletter;
     }
 
-    public String getTargetFixedLen() {
-        return target+"/fixedlen";
-    }
-
-    public String getTargetCSV() {
-        return target+"/scv";
-    }
-
-    public String getTargetAvro() {
-        return target+"/avro";
-    }
-
 }

@@ -1,7 +1,7 @@
 package net.cloudburo.hexagon.demo.port.in.covid.staging;
 
-import net.cloudburo.hexagon.demo.domain.covid.CovidCase;
-import net.cloudburo.hexagon.demo.domain.covid.CovidCaseWeekly;
+import clb.covid.CovidCase;
+import clb.covid.CovidCaseWeekly;
 
 /*
 A port interfaces understands the domain model data structure, which are passed in or retrieved

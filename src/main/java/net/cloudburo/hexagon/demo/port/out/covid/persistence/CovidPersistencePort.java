@@ -1,7 +1,7 @@
 package net.cloudburo.hexagon.demo.port.out.covid.persistence;
 
-import net.cloudburo.hexagon.demo.domain.covid.CovidCase;
-import net.cloudburo.hexagon.demo.domain.covid.CovidCaseWeekly;
+import clb.covid.CovidCase;
+import clb.covid.CovidCaseWeekly;
 
 public  interface CovidPersistencePort  {
 

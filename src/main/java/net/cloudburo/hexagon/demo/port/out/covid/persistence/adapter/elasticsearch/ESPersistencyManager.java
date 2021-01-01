@@ -54,24 +54,34 @@ public class ESPersistencyManager {
         }
     }
 
-    public void createUpdateDocument(String index,  String docJson, String id) throws IOException {
+    public void createUpdateDocument(String index,  String docJson, String id) throws  ESPersistencyException {
         Index esIndex;
-        if (id == null) {
-            esIndex = new Index.Builder(docJson).index(index).type("_doc").build();
-        } else {
-            esIndex = new Index.Builder(docJson).index(index).id(id).type("_doc").build();
-        }
-        JestResult jestResult =  getEsClient().execute(esIndex);
-        if(jestResult.isSucceeded()) {
-            logger.info("Document persisted:" +index+"/"+id);
-        }
-        else {
-            logger.error(jestResult);
+        try {
+            if (id == null) {
+                esIndex = new Index.Builder(docJson).index(index).type("_doc").build();
+            } else {
+                esIndex = new Index.Builder(docJson).index(index).id(id).type("_doc").build();
+            }
+            JestResult jestResult = getEsClient().execute(esIndex);
+            if (jestResult.isSucceeded()) {
+                logger.info("Document persisted:" + index + "/" + id);
+            } else {
+                jestResult.getErrorMessage();
+                jestResult.getResponseCode();
+                logger.error(jestResult);
+                throw new ESPersistencyException(jestResult.getResponseCode(), jestResult.getErrorMessage());
+            }
+        } catch (IOException ex) {
+            throw new ESPersistencyException("ElasticSearch Communication failed "+ex.getMessage(),ex);
         }
     }
 
-    public JsonObject readDocumentByIdAsObject(String index, String id) throws IOException{
-        return getEsClient().execute(new Get.Builder(index, id).build()).getJsonObject();
+    public JsonObject readDocumentByIdAsObject(String index, String id) throws ESPersistencyException{
+        try {
+            return getEsClient().execute(new Get.Builder(index, id).build()).getJsonObject();
+        } catch (IOException ex) {
+            throw new ESPersistencyException("ElasticSearch Communication failed "+ex.getMessage(),ex);
+        }
     }
 
     private  JestClient connectES(String esURL, String user, String password) {

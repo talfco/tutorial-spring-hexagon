@@ -1,6 +1,6 @@
 package net.cloudburo.hexagon.demo.port.in.covid.staging.adapter.files;
 
-import net.cloudburo.hexagon.demo.domain.covid.CovidCaseWeekly;
+import clb.covid.CovidCaseWeekly;
 import org.apache.camel.dataformat.bindy.annotation.CsvRecord;
 import org.apache.camel.dataformat.bindy.annotation.DataField;
 
