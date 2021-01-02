@@ -5,6 +5,7 @@ import net.cloudburo.hexagon.demo.kernel.covid.CovidUseCaseRepository;
 import net.cloudburo.hexagon.demo.port.in.covid.staging.CovidStagingPort;
 import net.cloudburo.hexagon.demo.port.in.covid.staging.CovidStagingPortConfig;
 import net.cloudburo.hexagon.demo.port.in.covid.staging.FailureProcessor;
+import net.cloudburo.hexagon.demo.port.in.covid.staging.MD5FileContentProcessor;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
@@ -49,6 +50,12 @@ public class CovidFileRouter extends RouteBuilder  {
             .log("Transform to Domain Model Completed: ${date:now:yyyy-MM-dd-HH:mm:ss}")
             .log("Processed file ${file:name} will be moved into folder "+covidStagingPortConfig.getTarget()+"/"+useCaseId)
             .setHeader(Exchange.FILE_NAME, simple("${file:name.noext}-${date:now:yyyyMMddHHmmssSSS}.${file:ext}"))
+            .to("file://" + covidStagingPortConfig.getTarget()+"/"+useCaseId)
+            // Let's calculate the MD5 Idempotent key of the content
+            .process(new MD5FileContentProcessor())
+            .setHeader(Exchange.FILE_NAME, simple("${file:name.noext}.md5"))
+            .log("MD5 Key: ${header.md5key}")
+            .setBody(simple("${header.md5key}"))
             .to("file://" + covidStagingPortConfig.getTarget()+"/"+useCaseId);
     }
 
